@@ -15,7 +15,7 @@ export interface Project {
   link?: string;
   githubUrl?: string;
   category: 'code' | 'translation' | 'infra' | 'both';
-  imageUrl: string;
+  imageUrl?: string; // Screenshot URL via ApiFlash
   track: CareerTrack; // NEW: which track(s) this project belongs to
 }
 

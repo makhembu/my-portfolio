@@ -7,12 +7,11 @@ import { ExternalLink, Github, ArrowRight, Loader2, Globe } from 'lucide-react';
 import { GitHubActivity } from './GitHubActivity';
 
 /**
- * ProjectImage - Displays project thumbnail with loading and error states
- * Handles image loading gracefully with spinner and error fallback
+ * ProjectImage - Displays project screenshot with loading and error states
+ * Uses ApiFlash for reliable, fast screenshot generation
  * Applies grayscale filter with hover effect for visual feedback
- * Includes timeout to prevent indefinite loading states
  * 
- * @param src - Image URL for project thumbnail
+ * @param src - Image URL for project screenshot
  * @param title - Project name for alt text and accessibility
  * @returns Image component with loading state management
  */
@@ -20,10 +19,10 @@ const ProjectImage: React.FC<{ src: string; title: string }> = ({ src, title }) 
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
 
   React.useEffect(() => {
-    // Set timeout to prevent indefinite loading - mshots service can be slow
+    // Set timeout in case image takes too long - ApiFlash can be slow on first request
     const timeout = setTimeout(() => {
       setStatus(prev => prev === 'loading' ? 'error' : prev);
-    }, 8000); // 8 second timeout
+    }, 12000); // 12 second timeout for screenshot service
 
     return () => clearTimeout(timeout);
   }, []);
@@ -33,7 +32,7 @@ const ProjectImage: React.FC<{ src: string; title: string }> = ({ src, title }) 
       {status === 'loading' && (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
           <Loader2 className="animate-spin text-indigo-500/50" size={24} />
-          <span className="text-[8px] font-black uppercase tracking-widest text-slate-400">Generating Preview...</span>
+          <span className="text-[8px] font-black uppercase tracking-widest text-slate-400">Loading Preview...</span>
         </div>
       )}
       <img 
@@ -48,7 +47,7 @@ const ProjectImage: React.FC<{ src: string; title: string }> = ({ src, title }) 
       {status === 'error' && (
         <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 gap-2">
           <Globe size={40} className="opacity-20" />
-          <span className="text-[8px] font-black uppercase tracking-widest opacity-40">Live Site Offline</span>
+          <span className="text-[8px] font-black uppercase tracking-widest opacity-40">Preview Unavailable</span>
         </div>
       )}
     </div>
@@ -106,7 +105,7 @@ export const Projects: React.FC = () => {
           {filtered.map(project => (
             <div key={project.id} className="group flex flex-col h-full bg-white dark:bg-white/[0.01] border border-slate-200 dark:border-white/5 rounded-3xl overflow-hidden hover:border-indigo-500/40 transition-all duration-500 shadow-sm hover:shadow-xl">
               <div className="relative h-56 md:h-64 overflow-hidden shrink-0">
-                <ProjectImage src={project.imageUrl} title={project.title} />
+                <ProjectImage src={project.imageUrl || ''} title={project.title} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
                    <div className="space-y-1">
                       <p className="text-white text-[10px] font-black uppercase tracking-widest">Ownership</p>

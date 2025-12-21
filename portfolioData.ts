@@ -183,7 +183,7 @@ export const portfolioData: EnhancedPortfolioData = {
       "githubUrl": "https://github.com/makhembu/writing-service", 
       "category": "code",
       "track": "it",
-      "imageUrl": "https://s0.wp.com/mshots/v1/https%3A%2F%2Fwriting-service.vercel.app%2F?w=800&h=600"
+      "imageUrl": "https://api.apiflash.com/v1/urltoimage?access_key=free&url=https://writing-service.vercel.app&width=800&height=600"
     },
     {
       "id": "grade-assist",
@@ -201,7 +201,7 @@ export const portfolioData: EnhancedPortfolioData = {
       "githubUrl": "https://github.com/makhembu/gradeassist",
       "category": "code",
       "track": "it",
-      "imageUrl": "https://s0.wp.com/mshots/v1/https%3A%2F%2Fgradeassist-psi.vercel.app%2F?w=800&h=600"
+      "imageUrl": "https://api.apiflash.com/v1/urltoimage?access_key=free&url=https://gradeassist-psi.vercel.app&width=800&height=600"
     },
     {
       "id": "jambo-demo",
@@ -219,7 +219,7 @@ export const portfolioData: EnhancedPortfolioData = {
       "githubUrl": "https://github.com/makhembu/jambo-portal",
       "category": "translation",
       "track": "both",
-      "imageUrl": "https://s0.wp.com/mshots/v1/https%3A%2F%2Fjambo-demo.vercel.app%2F?w=800&h=600"
+      "imageUrl": "https://api.apiflash.com/v1/urltoimage?access_key=free&url=https://jambo-demo.vercel.app&width=800&height=600"
     }
   ],
   "services": [
