@@ -1,7 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
 
-const genAI = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY || '' });
-
 /**
  * Remove markdown formatting from text
  * Converts **bold** to bold, *italic* to italic, etc.
@@ -115,6 +113,7 @@ Return a JSON object with:
 
 Be strategic - highlight the candidate's strongest matches and deemphasize less relevant experience.`;
 
+    const genAI = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY || '' });
     const result = await genAI.models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
