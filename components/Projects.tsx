@@ -1,9 +1,9 @@
 
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { portfolioData } from '@/portfolioData';
-import { ExternalLink, Github, Loader2 } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import { GitHubActivity } from './GitHubActivity';
 
 // Gradient palette for project fallback backgrounds
@@ -24,69 +24,38 @@ function getProjectGradient(projectId: string): string {
 }
 
 interface ProjectImageProps {
-  src: string;
   projectId: string;
   title: string;
 }
 
 /**
  * ProjectImage Component
- * - Shows gradient background immediately (no blank state)
- * - Loads screenshot in background with lazy loading
- * - Graceful fallback to gradient if image fails
- * - Smooth transitions and hover effects
+ * - Uses beautiful gradient backgrounds with overlaid project info
+ * - No external API calls needed - fast and reliable
+ * - Works perfectly on Vercel with zero dependencies
  */
-const ProjectImage: React.FC<ProjectImageProps> = ({ src, projectId, title }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
-  
+const ProjectImage: React.FC<ProjectImageProps> = ({ projectId, title }) => {
   const gradient = getProjectGradient(projectId);
-  const showImage = imageLoaded && !imageError && src;
-
-  const handleImageLoad = useCallback(() => {
-    setImageLoaded(true);
-  }, []);
-
-  const handleImageError = useCallback(() => {
-    setImageError(true);
-    setImageLoaded(true);
-  }, []);
 
   return (
     <div className={`relative w-full h-full bg-gradient-to-br ${gradient} overflow-hidden group`}>
       {/* Diagonal stripe pattern overlay */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.05)_25%,rgba(255,255,255,.05)_50%,transparent_50%,transparent_75%,rgba(255,255,255,.05)_75%,rgba(255,255,255,.05))] bg-[length:40px_40px]" />
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.08)_25%,rgba(255,255,255,.08)_50%,transparent_50%,transparent_75%,rgba(255,255,255,.08)_75%,rgba(255,255,255,.08))] bg-[length:40px_40px]" />
       </div>
 
-      {/* Loading spinner - only visible while image loads */}
-      {!imageLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/5">
-          <div className="flex flex-col items-center gap-2">
-            <Loader2 className="animate-spin text-white/40" size={20} />
-            <span className="text-[7px] font-black uppercase tracking-widest text-white/30">Loading</span>
-          </div>
-        </div>
-      )}
+      {/* Centered project title and icon area */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+        <h4 className="text-white/80 text-lg md:text-xl font-bold tracking-tight group-hover:text-white transition-colors">
+          {title}
+        </h4>
+        <p className="text-white/50 text-[11px] mt-2 font-light uppercase tracking-widest group-hover:text-white/70 transition-colors">
+          Live Project
+        </p>
+      </div>
 
-      {/* Actual screenshot - loads lazily in background */}
-      {src && (
-        <img 
-          src={src}
-          alt={title}
-          loading="lazy"
-          onLoad={handleImageLoad}
-          onError={handleImageError}
-          className={`w-full h-full object-cover transition-all duration-700 ${
-            showImage 
-              ? 'grayscale group-hover:grayscale-0 opacity-85 group-hover:opacity-100' 
-              : 'opacity-0'
-          }`}
-        />
-      )}
-
-      {/* Dark overlay for text readability on hover */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Dark overlay on hover for readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </div>
   );
 };
@@ -105,7 +74,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       {/* Project Image Section */}
       <div className="relative h-56 md:h-64 overflow-hidden shrink-0">
         <ProjectImage 
-          src={project.imageUrl || ''} 
           projectId={project.id} 
           title={project.title} 
         />

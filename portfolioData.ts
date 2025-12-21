@@ -182,8 +182,7 @@ export const portfolioData: EnhancedPortfolioData = {
       "link": "https://writing-service.vercel.app/",
       "githubUrl": "https://github.com/makhembu/writing-service", 
       "category": "code",
-      "track": "it",
-      "imageUrl": "https://api.apiflash.com/v1/urltoimage?access_key=free&url=https://writing-service.vercel.app&width=800&height=600"
+      "track": "it"
     },
     {
       "id": "grade-assist",
@@ -200,8 +199,7 @@ export const portfolioData: EnhancedPortfolioData = {
       "link": "https://gradeassist-psi.vercel.app/",
       "githubUrl": "https://github.com/makhembu/gradeassist",
       "category": "code",
-      "track": "it",
-      "imageUrl": "https://api.apiflash.com/v1/urltoimage?access_key=free&url=https://gradeassist-psi.vercel.app&width=800&height=600"
+      "track": "it"
     },
     {
       "id": "jambo-demo",
@@ -218,8 +216,7 @@ export const portfolioData: EnhancedPortfolioData = {
       "link": "https://jambo-demo.vercel.app/",
       "githubUrl": "https://github.com/makhembu/jambo-portal",
       "category": "translation",
-      "track": "both",
-      "imageUrl": "https://api.apiflash.com/v1/urltoimage?access_key=free&url=https://jambo-demo.vercel.app&width=800&height=600"
+      "track": "both"
     }
   ],
   "services": [
