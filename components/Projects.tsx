@@ -10,6 +10,7 @@ import { GitHubActivity } from './GitHubActivity';
  * ProjectImage - Displays project thumbnail with loading and error states
  * Handles image loading gracefully with spinner and error fallback
  * Applies grayscale filter with hover effect for visual feedback
+ * Includes timeout to prevent indefinite loading states
  * 
  * @param src - Image URL for project thumbnail
  * @param title - Project name for alt text and accessibility
@@ -17,6 +18,15 @@ import { GitHubActivity } from './GitHubActivity';
  */
 const ProjectImage: React.FC<{ src: string; title: string }> = ({ src, title }) => {
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
+
+  React.useEffect(() => {
+    // Set timeout to prevent indefinite loading - mshots service can be slow
+    const timeout = setTimeout(() => {
+      setStatus(prev => prev === 'loading' ? 'error' : prev);
+    }, 8000); // 8 second timeout
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className="relative w-full h-full bg-slate-100 dark:bg-white/[0.03]">
