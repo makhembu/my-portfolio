@@ -7,49 +7,52 @@ import { ExternalLink, Github, ArrowRight, Loader2, Globe } from 'lucide-react';
 import { GitHubActivity } from './GitHubActivity';
 
 /**
- * ProjectImage - Displays project screenshot with loading and error states
- * Uses ApiFlash for reliable, fast screenshot generation
- * Applies grayscale filter with hover effect for visual feedback
+ * ProjectImage - Displays project screenshot with gradient fallback
+ * Shows gradient background immediately, overlays image when loaded
+ * Falls back gracefully if image fails to load
  * 
  * @param src - Image URL for project screenshot
+ * @param projectId - Project ID for consistent gradient generation
  * @param title - Project name for alt text and accessibility
- * @returns Image component with loading state management
+ * @returns Image component with gradient fallback
  */
-const ProjectImage: React.FC<{ src: string; title: string }> = ({ src, title }) => {
-  const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
-
-  React.useEffect(() => {
-    // Set timeout in case image takes too long - ApiFlash can be slow on first request
-    const timeout = setTimeout(() => {
-      setStatus(prev => prev === 'loading' ? 'error' : prev);
-    }, 12000); // 12 second timeout for screenshot service
-
-    return () => clearTimeout(timeout);
-  }, []);
+const ProjectImage: React.FC<{ src: string; projectId: string; title: string }> = ({ src, projectId, title }) => {
+  const [loaded, setLoaded] = useState(false);
+  
+  // Generate consistent gradient based on project ID
+  const gradients = [
+    'from-indigo-500 to-purple-600',
+    'from-blue-500 to-cyan-600',
+    'from-emerald-500 to-teal-600',
+  ];
+  const gradient = gradients[projectId.charCodeAt(0) % gradients.length];
 
   return (
-    <div className="relative w-full h-full bg-slate-100 dark:bg-white/[0.03]">
-      {status === 'loading' && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-          <Loader2 className="animate-spin text-indigo-500/50" size={24} />
-          <span className="text-[8px] font-black uppercase tracking-widest text-slate-400">Loading Preview...</span>
+    <div className={`relative w-full h-full bg-gradient-to-br ${gradient} overflow-hidden`}>
+      {/* Gradient fallback background with pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.1)_25%,rgba(255,255,255,.1)_50%,transparent_50%,transparent_75%,rgba(255,255,255,.1)_75%,rgba(255,255,255,.1))] bg-[length:40px_40px]" />
+      </div>
+
+      {/* Loading spinner - only show briefly */}
+      {!loaded && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-20">
+          <Loader2 className="animate-spin text-white/50" size={24} />
+          <span className="text-[8px] font-black uppercase tracking-widest text-white/40">Loading</span>
         </div>
       )}
+
+      {/* Actual screenshot image - overlays gradient */}
       <img 
         src={src} 
         alt={title} 
-        onLoad={() => setStatus('loaded')}
-        onError={() => setStatus('error')}
-        className={`w-full h-full object-cover transition-all duration-1000 ${
-          status === 'loaded' ? 'grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100' : 'opacity-0'
+        onLoad={() => setLoaded(true)}
+        onError={() => setLoaded(false)}
+        className={`w-full h-full object-cover transition-all duration-500 ${
+          loaded ? 'grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100' : 'opacity-0'
         }`} 
+        loading="lazy"
       />
-      {status === 'error' && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 gap-2">
-          <Globe size={40} className="opacity-20" />
-          <span className="text-[8px] font-black uppercase tracking-widest opacity-40">Preview Unavailable</span>
-        </div>
-      )}
     </div>
   );
 };
@@ -105,7 +108,7 @@ export const Projects: React.FC = () => {
           {filtered.map(project => (
             <div key={project.id} className="group flex flex-col h-full bg-white dark:bg-white/[0.01] border border-slate-200 dark:border-white/5 rounded-3xl overflow-hidden hover:border-indigo-500/40 transition-all duration-500 shadow-sm hover:shadow-xl">
               <div className="relative h-56 md:h-64 overflow-hidden shrink-0">
-                <ProjectImage src={project.imageUrl || ''} title={project.title} />
+                <ProjectImage src={project.imageUrl || ''} projectId={project.id} title={project.title} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
                    <div className="space-y-1">
                       <p className="text-white text-[10px] font-black uppercase tracking-widest">Ownership</p>
