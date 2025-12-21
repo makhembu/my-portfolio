@@ -4,6 +4,7 @@
 import React from 'react';
 import { portfolioData } from '@/portfolioData';
 import { GraduationCap, MapPin, Zap, Database, Globe } from 'lucide-react';
+import { useLanguage } from '@/lib/context';
 
 /**
  * SummaryRenderer - Parses and renders markdown-style links in text
@@ -49,6 +50,7 @@ const SummaryRenderer: React.FC<{ text: string }> = ({ text }) => {
  * @returns About section component with responsive grid layout
  */
 export const About: React.FC = () => {
+  const { lang, t } = useLanguage();
   // Use IT variant as default for About section
   const profileVariant = portfolioData.profile.variants.it;
   
@@ -57,8 +59,8 @@ export const About: React.FC = () => {
       <div className="grid lg:grid-cols-2 gap-20 items-center">
         <div className="space-y-8">
           <div className="space-y-4">
-            <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-indigo-600">Mimi ni Nani / Identity</h2>
-            <h3 className="font-display text-6xl font-bold text-slate-900 dark:text-white tracking-tight">Product-Minded Engineer.</h3>
+            <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-indigo-600">{t('sectionIdentity')}</h2>
+            <h3 className="font-display text-6xl font-bold text-slate-900 dark:text-white tracking-tight">{t('aboutTitle')}.</h3>
           </div>
           <div className="text-xl font-light leading-relaxed text-slate-600 dark:text-slate-400">
             <SummaryRenderer text={profileVariant.summary} />

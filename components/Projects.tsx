@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { portfolioData } from '@/portfolioData';
 import { ExternalLink, Github, Loader2 } from 'lucide-react';
+import { useLanguage } from '@/lib/context';
 import { GitHubActivity } from './GitHubActivity';
 
 // Gradient palette for project fallback backgrounds
@@ -221,6 +222,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
  */
 export const Projects: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('all');
+  const { t } = useLanguage();
 
   const categoryLabels = {
     all: 'All Projects',
@@ -241,14 +243,14 @@ export const Projects: React.FC = () => {
       <div className="space-y-6">
         <div className="space-y-3">
           <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-indigo-600 dark:text-indigo-400">
-            Portfolio / Evidence
+            {t('projectsSubtitle')}
           </h2>
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white text-slate-900 leading-tight tracking-tight">
-            Featured Work
+            {t('sectionProjects')}
           </h1>
         </div>
         <p className="text-base text-slate-600 dark:text-slate-400 max-w-2xl font-light leading-relaxed">
-          Production projects spanning full-stack development, infrastructure automation, and technical localization. Each represents hands-on ownership from architecture through deployment.
+          {t('projectsDescription')}
         </p>
       </div>
 
@@ -264,7 +266,7 @@ export const Projects: React.FC = () => {
                 : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20'
             }`}
           >
-            {categoryLabels[category]}
+            {category}
           </button>
         ))}
       </div>

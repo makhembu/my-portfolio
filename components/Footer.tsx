@@ -6,6 +6,7 @@ import { portfolioData } from '@/portfolioData';
 import { Github, Linkedin, Mail, Lock } from 'lucide-react';
 import { PINModal } from './PINModal';
 import { useResumeUnlock } from '@/lib/resumeContext';
+import { useLanguage } from '@/lib/context';
 
 const RECRUITER_PIN = '123456';
 
@@ -13,6 +14,7 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const [isPINModalOpen, setIsPINModalOpen] = useState(false);
   const { setIsResumeUnlocked } = useResumeUnlock();
+  const { t } = useLanguage();
 
   const handleUnlockResume = () => {
     setIsPINModalOpen(true);
@@ -28,7 +30,7 @@ export const Footer: React.FC = () => {
       <footer className="border-t border-slate-200 dark:border-white/5 py-12 md:py-20 bg-slate-50 dark:bg-transparent overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
           <div className="space-y-6 md:space-y-8">
-            <h2 className="font-display text-4xl md:text-5xl font-bold dark:text-white text-slate-900 tracking-tighter">Tuongee. Let's Build.</h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold dark:text-white text-slate-900 tracking-tighter">{t('footerContact')}</h2>
             <p className="text-lg md:text-xl text-slate-500 font-light max-w-sm">Ready to integrate into elite engineering teams or localise your next big launch.</p>
             <div className="flex gap-4 md:gap-6 flex-wrap">
               <a href={portfolioData.socials.github} target="_blank" rel="noopener noreferrer" className="p-3 md:p-4 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl hover:text-indigo-600 transition-all shadow-sm"><Github size={24}/></a>

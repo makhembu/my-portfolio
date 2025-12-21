@@ -5,10 +5,12 @@ import { FileText, Zap } from 'lucide-react';
 import { ATSFriendlyResume } from './ATSFriendlyResume';
 import { ResumeOptimizer } from './ResumeOptimizer';
 import { useResumeUnlock } from '@/lib/resumeContext';
+import { useLanguage } from '@/lib/context';
 import { useState } from 'react';
 
 export const ResumeSection: React.FC = () => {
   const { isResumeUnlocked } = useResumeUnlock();
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'ats' | 'optimizer'>('ats');
 
   // Don't render the section at all if not unlocked

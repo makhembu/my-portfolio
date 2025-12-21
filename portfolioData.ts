@@ -70,7 +70,22 @@ export const portfolioData: EnhancedPortfolioData = {
       "aboutTitle": "Product-Minded Engineer",
       "footerContact": "Tuongee. Let's Build.",
       "resumeBtn": "Resume",
-      "availabilityLabel": "Available"
+      "availabilityLabel": "Available",
+      "projectsSubtitle": "Kazi / Proof of Competence",
+      "projectsDescription": "Production projects spanning full-stack development, infrastructure automation, and technical localization. Each represents hands-on ownership from architecture through deployment.",
+      "filterAll": "all",
+      "filterCode": "code",
+      "filterInfra": "infra",
+      "filterTranslation": "translation",
+      "resumeSection": "Resume Intelligence",
+      "resumeSectionTitle": "ATS-Optimized & AI-Powered.",
+      "resumeDescription": "Professional resume optimized for both ATS systems and recruiters. Plus AI job matching to tailor your resume for specific opportunities.",
+      "atsTab": "Download Resume",
+      "atsReadyLabel": "✓ Recruiter & ATS Ready",
+      "atsReadyDesc": "Clean, semantic text-based resume that works with every ATS system and human recruiter. Download as PDF or copy as text.",
+      "optimizerTab": "AI Job Matcher",
+      "optimizerLabel": "🤖 AI-Powered Optimization",
+      "optimizerDesc": "Paste any job description. Our AI analyzes it and tailors your resume to match perfectly reordering experience by relevance, highlighting matching skills, and optimizing bullet points. See your match score instantly."
     },
     "sw": {
       "navHome": "Mwanzo",
@@ -91,7 +106,22 @@ export const portfolioData: EnhancedPortfolioData = {
       "footerContact": "Tuzungumze. Tujenge.",
       "resumeBtn": "Wasifu (CV)",
       "availabilityLabel": "Napatikana",
-      "tagline": "Mantiki ya uhandisi. Muktadha wa kibinadamu. Ubunifu unaoongozwa na utafiti."
+      "tagline": "Mantiki ya uhandisi. Muktadha wa kibinadamu. Ubunifu unaoongozwa na utafiti.",
+      "projectsSubtitle": "Kazi / Uthibitisho wa Ustadi",
+      "projectsDescription": "Miradi ya uzalishaji inayoambatanisha maendeleo ya kamili ya kuta, automation ya miundombinu, na kwa kutafsiri kwa kiufundi. Kila mmoja anawakilisha umiliki wa moja kwa moja kutoka kwa usanidi hadi kumfukuzwa.",
+      "filterAll": "yote",
+      "filterCode": "programu",
+      "filterInfra": "miundombinu",
+      "filterTranslation": "lokalisasi",
+      "resumeSection": "Akili ya Wasifu",
+      "resumeSectionTitle": "Optimized kwa ATS & Inayoendeshwa na AI.",
+      "resumeDescription": "Wasifu wa kitaaluma ulioboreswa kwa mifumo ya ATS na waajiri. Pamoja na kulinganishwa kwa kazi cha AI kurudia wasifu wako ili kuambatana vizuri na fursa maalum.",
+      "atsTab": "Pakua Wasifu",
+      "atsReadyLabel": "✓ Waajiri & ATS Tayari",
+      "atsReadyDesc": "Wasifu wa maandishi safi na wa kiufundi ambayo unafanya kazi na kila mfumo wa ATS na waajiri wa binadamu. Pakua kama PDF au kunakili kama maandishi.",
+      "optimizerTab": "Linganisha Kazi ya AI",
+      "optimizerLabel": "🤖 Uboreshaji Unaohisi AI",
+      "optimizerDesc": "Bandika maelezo yoyote ya kazi. AI yetu inachambua na kurahisisha wasifu wako kulingana na mahusiano ya karibu kucheza vipengele vya kushindwa, kubainisha maarifa yanayolinganisha, na kuboresha alama. Angalia alama yako ya kulinganisha haraka."
     }
   },
   "socials": {
