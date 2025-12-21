@@ -1,0 +1,7 @@
+# SEO Cache - Generated AI content
+# Keep this directory but gitignore cache files for now
+# Uncomment the next line to track cache across deployments
+# !seo-cache.json
+
+# Keep the directory structure
+!.gitkeep

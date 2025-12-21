@@ -1,0 +1,71 @@
+
+{
+  "profile": {
+    "firstName": "Brian",
+    "lastName": "Makhembu",
+    "role": "Senior Full-Stack Developer",
+    "yearsExperience": "6+",
+    "location": "Nairobi, Kenya",
+    "education": "JKUAT Alumni - B.S. Computer Tech",
+    "tagline": "Architecting Digital Systems & Swahili Context.",
+    "summary": "6+ years of experience building and shipping production-ready web applications using React, TypeScript, Node.js, and PostgreSQL, with a strong background in IT infrastructure, AI/ML integration, and automation.",
+    "availability": "Available for Remote Roles"
+  },
+  "socials": {
+    "github": "https://github.com/makhembu",
+    "linkedin": "https://linkedin.com/in/brianmakhembu/",
+    "email": "contact@brianmakhembu.com"
+  },
+  "projects": [
+    {
+      "id": "1",
+      "title": "Jambo Linguists Web Portal",
+      "description": "Engineered a production-ready management platform for translator assignments, client bookings, and project workflows using React, TypeScript, and Node.js.",
+      "tags": ["React", "TypeScript", "Node.js", "PostgreSQL", "Prisma"],
+      "category": "code",
+      "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      "id": "2",
+      "title": "Kenya School Lab Deployments",
+      "description": "Lead technician for the infrastructure setup of 10+ school computer labs across Kenya, including networking, hardware installation, and OS configuration.",
+      "tags": ["Networking", "SysAdmin", "Hardware", "Infrastructure"],
+      "category": "infra",
+      "imageUrl": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      "id": "3",
+      "title": "Professional Translation",
+      "description": "Linguistic expert at Jambo Linguists providing English-Swahili document translation and live interpretation for global clients.",
+      "tags": ["Linguistics", "Swahili", "Interpreting", "Translation"],
+      "category": "translation",
+      "imageUrl": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop"
+    }
+  ],
+  "services": [
+    {
+      "title": "Full-Stack Development",
+      "description": "Building end-to-end applications with React, Next.js, and TypeScript, backed by robust Node.js/PostgreSQL APIs.",
+      "icon": "Code2"
+    },
+    {
+      "title": "Infrastructure & DevOps",
+      "description": "Designing deployment pipelines (CI/CD), managing Docker/Kubernetes, and configuring secure network environments.",
+      "icon": "Server"
+    },
+    {
+      "title": "Linguistic Services",
+      "description": "Professional English to Swahili translation, localization, and technical interpretation for global markets.",
+      "icon": "Languages"
+    }
+  ],
+  "skills": {
+    "frontend": ["React", "Next.js", "TypeScript", "Tailwind", "Redux", "Zustand", "HTML5/CSS3"],
+    "backend": ["Node.js", "Express", "PostgreSQL", "Supabase", "REST", "GraphQL", "Prisma"],
+    "infrastructure": ["Docker", "Kubernetes", "CI/CD", "AWS", "Networking", "SysAdmin", "Hardware"]
+  },
+  "languages": [
+    { "name": "Swahili (Native)", "level": 100 },
+    { "name": "English (Professional)", "level": 98 }
+  ]
+}

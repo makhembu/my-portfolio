@@ -1,0 +1,30 @@
+{
+  "name": "brian-makhembu-|-full-stack-software-engineer-&-linguist",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@google/genai": "^1.34.0",
+    "html-pdf-node": "^1.0.8",
+    "jspdf": "^3.0.4",
+    "lucide-react": "^0.562.0",
+    "next": "^16.1.0",
+    "next-seo": "^7.0.1",
+    "next-sitemap": "^4.2.3",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "~5.8.2"
+  }
+}
