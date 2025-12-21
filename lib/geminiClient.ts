@@ -2,6 +2,7 @@
  * Centralized Gemini API Client
  * Single file for all Google Gemini AI requests
  * Handles API key management and model initialization
+ * Env vars are ONLY evaluated at runtime, never at build time
  */
 
 import { GoogleGenAI } from "@google/genai";
@@ -11,15 +12,19 @@ let geminiClient: GoogleGenAI | null = null;
 /**
  * Get or create the Gemini client instance
  * Lazy initialization at runtime (not build time) to avoid env var issues
+ * This function is only called when AI is actually needed, never at build time
  */
 export function getGeminiClient(): GoogleGenAI {
   if (!geminiClient) {
-    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+    // Only access env var when this function is actually called (at runtime)
+    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || 
+                   process.env.GEMINI_API_KEY ||
+                   "";
     
     if (!apiKey) {
       throw new Error(
-        'NEXT_PUBLIC_GEMINI_API_KEY is not configured. ' +
-        'Please set it in your .env.local file or Vercel environment variables.'
+        'Gemini API key is not configured. ' +
+        'Set NEXT_PUBLIC_GEMINI_API_KEY or GEMINI_API_KEY in your environment variables.'
       );
     }
     
