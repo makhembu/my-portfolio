@@ -50,37 +50,14 @@ export async function generateGeminiContent(
     contents: prompt,
   });
 
-  const content = response.response.content();
-  if (content && content.parts && content.parts.length > 0) {
-    const part = content.parts[0];
-    if ('text' in part) {
-      return part.text;
-    }
+  // Access text directly from response
+  if (response.text) {
+    return response.text;
   }
 
   throw new Error('Empty response from Gemini API');
 }
 
-/**
- * Stream content from Gemini API
- * @param model - Model to use
- * @param prompt - Text prompt to send to the model
- * @returns Async generator for streaming content
- */
-export async function* streamGeminiContent(
-  model: string,
-  prompt: string
-) {
-  const client = getGeminiClient();
-  const response = await client.models.streamGenerateContent({
-    model,
-    contents: prompt,
-  });
-  
-  for await (const chunk of response.stream) {
-    yield chunk;
-  }
-}
 
 /**
  * Chat with Gemini using system instructions
@@ -97,18 +74,16 @@ export async function chatWithGemini(
   try {
     const client = getGeminiClient();
     
+    // Combine system instruction with user message
+    const fullPrompt = `${systemInstruction}\n\nUser message: ${userMessage}`;
+    
     const response = await client.models.generateContent({
       model,
-      systemInstruction,
-      contents: userMessage,
+      contents: fullPrompt,
     });
 
-    const content = response.response.content();
-    if (content && content.parts && content.parts.length > 0) {
-      const part = content.parts[0];
-      if ('text' in part) {
-        return part.text;
-      }
+    if (response.text) {
+      return response.text;
     }
 
     return "I encountered an issue processing your request. Please try again.";

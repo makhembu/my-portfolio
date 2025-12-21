@@ -1,5 +1,5 @@
 
-import { chatWithGemini } from "@/lib/geminiClient";
+import { chatWithGemini, analyzeWithGemini } from "@/lib/geminiClient";
 import { portfolioData } from "@/portfolioData";
 
 /**
@@ -84,20 +84,9 @@ export const translateText = async (text: string): Promise<string> => {
   }
 
   try {
-    const ai = getAi();
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: `Translate the following English text to professional Swahili. Context: ${portfolioData.profile.firstName} ${portfolioData.profile.lastName} is a professional translator. Provide a natural, fluent, and technically accurate translation.\n\nText: ${text}`,
-      config: {
-        temperature: 0.2,
-      },
-    });
+    const prompt = `Translate the following English text to professional Swahili. Context: ${portfolioData.profile.firstName} ${portfolioData.profile.lastName} is a professional translator. Provide a natural, fluent, and technically accurate translation.\n\nText: ${text}`;
     
-    if (!response.text) {
-      throw new Error('Empty response from translation model');
-    }
-    
-    return response.text;
+    return await analyzeWithGemini(prompt, "gemini-2.5-flash");
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error("Translation error:", errorMessage);
