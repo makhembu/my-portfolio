@@ -74,17 +74,16 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Hydrate state from localStorage or system preference on client mount
+  // Hydrate state from localStorage on client mount
   useEffect(() => {
     const savedTheme = safeLocalStorage.getItem('theme');
     const savedLang = safeLocalStorage.getItem('lang') as Language | null;
     
-    // If no saved theme, use system preference
+    // Default to light mode, respect saved preference
     if (savedTheme) {
       setDarkMode(savedTheme === 'dark');
-    } else if (typeof window !== 'undefined' && window.matchMedia) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setDarkMode(prefersDark);
+    } else {
+      setDarkMode(false); // Light mode is default
     }
     
     if (savedLang && (savedLang === 'en' || savedLang === 'sw')) {
