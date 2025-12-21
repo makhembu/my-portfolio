@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+import { generateGeminiContent } from "@/lib/geminiClient";
 
 /**
  * Remove markdown formatting from text
@@ -113,20 +113,7 @@ Return a JSON object with:
 
 Be strategic - highlight the candidate's strongest matches and deemphasize less relevant experience.`;
 
-    const genAI = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY || '' });
-    const result = await genAI.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: prompt,
-    });
-
-    // Handle the response text based on genai library structure
-    let responseText = '';
-    
-    if (typeof result.text === 'string') {
-      responseText = result.text;
-    } else if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
-      responseText = result.candidates[0].content.parts[0].text;
-    }
+    const responseText = await generateGeminiContent("gemini-2.5-flash", prompt);
 
     if (!responseText) {
       throw new Error('Empty response from AI model');

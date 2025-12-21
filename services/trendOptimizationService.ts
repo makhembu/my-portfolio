@@ -1,4 +1,4 @@
-import { getAi } from "./geminiService";
+import { getAi } from "@/lib/geminiClient";
 import { compileTrendReport, extractKeywordsFromTrends, TrendReport } from "./trendResearchService";
 import { PageSEO } from "@/seoData";
 import { updateSEOInCache } from "@/lib/seoStorage";

@@ -1,20 +1,6 @@
 
-import { GoogleGenAI } from "@google/genai";
+import { chatWithGemini } from "@/lib/geminiClient";
 import { portfolioData } from "@/portfolioData";
-
-/**
- * Initialize Google GenAI with API key from environment
- * Uses NEXT_PUBLIC_GEMINI_API_KEY for Next.js
- * @throws Error if API_KEY is not configured
- * @returns GoogleGenAI instance
- */
-export const getAi = () => {
-  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error('NEXT_PUBLIC_GEMINI_API_KEY is not configured. Please set it in your .env.local file.');
-  }
-  return new GoogleGenAI({ apiKey });
-};
 
 /**
  * Chat with Brian's AI Assistant
@@ -72,20 +58,7 @@ export const chatWithBrianAI = async (message: string): Promise<string> => {
   `;
 
   try {
-    const ai = getAi();
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: message,
-      config: {
-        systemInstruction: systemInstruction,
-      },
-    });
-    
-    if (!response.text) {
-      throw new Error('Empty response from AI model');
-    }
-    
-    return response.text;
+    return await chatWithGemini(systemInstruction, message, "gemini-2.5-flash");
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error("Chat error:", errorMessage);

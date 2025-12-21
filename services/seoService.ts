@@ -1,4 +1,4 @@
-import { getAi } from "./geminiService";
+import { getAi } from "@/lib/geminiClient";
 import {
   PageSEO,
   AIGeneratedSEO,
