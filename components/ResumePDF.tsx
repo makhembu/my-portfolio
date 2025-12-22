@@ -107,7 +107,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({
         </section>
 
         {/* Experience */}
-        <section style={{ marginBottom: '0', flex: '1', minHeight: 0 }}>
+        <section style={{ marginBottom: '3px', flex: '1', minHeight: 0 }}>
           <h2 style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', margin: '0 0 4px 0', color: '#000', letterSpacing: '0.5px' }}>
             Professional Experience
           </h2>
