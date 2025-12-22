@@ -137,7 +137,7 @@ export const portfolioData: EnhancedPortfolioData = {
       "period": "Jan 2023 - Present",
       "track": "both",
       "description": [
-        "Delivered professional English–Swahili translation and interpreting services for 50+ global clients with 98%+ accuracy across document translation, telephone/video interpreting, and in-person interpretation.",
+        "Delivered professional English–Swahili translation and interpreting services for 50+ global clients with 98%+ accuracy across high-stakes legal matters, court proceedings up to international tribunals, bodycam footage analysis, document translation, telephone/video interpreting, and in-person interpretation. Specialized in criminal justice, immigration, and legal interpretation with precision required for court admissibility.",
         "Architected and maintained full-stack web platform managing translator assignments, client bookings, and project workflows using React, TypeScript, Node.js, and PostgreSQL processing 200+ projects annually.",
         "Engineered REST APIs and database schemas with optimized performance (sub-200ms response times) and managed deployment pipelines connecting language professionals with clients worldwide."
       ],
