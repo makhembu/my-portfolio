@@ -211,9 +211,20 @@ export const Navbar: React.FC = () => {
           <div className="md:hidden flex items-center gap-4">
             <button 
               onClick={() => setLang(lang === 'en' ? 'sw' : 'en')}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 text-[11px] font-bold uppercase tracking-wider"
+              title={lang === 'en' ? 'Switch to Swahili' : 'Switch to English'}
             >
-              <Languages size={18} />
+              {lang === 'en' ? (
+                <>
+                  <GB width={14} height={10} />
+                  EN
+                </>
+              ) : (
+                <>
+                  <KE width={14} height={10} />
+                  SW
+                </>
+              )}
             </button>
             <button 
               className="text-slate-600 dark:text-slate-400"

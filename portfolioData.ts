@@ -87,7 +87,9 @@ export const portfolioData: EnhancedPortfolioData = {
       "optimizerLabel": "See How You Fit",
       "optimizerDesc": "Paste a job description. I'll reorder your experience by relevance, highlight what matches, and show you your fit score. It's not magic. It's useful.",
       "removeDoubt": "Remove All Doubt.",
-      "removeDoubtDesc": "Available for engineering roles where technical judgment and cultural nuance matter."
+      "removeDoubtDesc": "Available for engineering roles where technical judgment and cultural nuance matter.",
+      "baseLabel": "Location",
+      "footerEmail": "Email"
     },
     "sw": {
       "navHome": "Mwanzo",
