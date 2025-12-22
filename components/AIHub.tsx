@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Languages, Cpu, User } from 'lucide-react';
-import { translateText, chatWithBrianAI } from '@/services/geminiService';
+import { Send, Languages, Cpu, User, Lightbulb } from 'lucide-react';
+import { translateText, chatWithBrianAI, getStarterPrompts } from '@/services/geminiService';
 
 const MessageContent: React.FC<{ text: string }> = ({ text }) => {
   // Enhanced markdown-style handling for Bold, Newline, and Links [label](url)
@@ -51,10 +51,12 @@ export const AIHub: React.FC = () => {
   const [chatIn, setChatIn] = useState('');
   const [chatLog, setChatLog] = useState<{role: 'u'|'ai', t: string}[]>([{
     role: 'ai', 
-    t: "Hujambo! I am Brian's AI representative. You can explore my work on [GitHub](https://github.com/makhembu) or connect on [LinkedIn](https://linkedin.com/in/brianmakhembu/). How can I help?"
+    t: "Hujambo! I summarize Brian's experience on this portfolio. For complete details or career advice, visit brianuche.dev or contact Brian directly on [GitHub](https://github.com/makhembu) or [LinkedIn](https://linkedin.com/in/brianmakhembu/)."
   }]);
   const [isChatting, setIsChatting] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [showStarters, setShowStarters] = useState(true);
+  const starterPrompts = getStarterPrompts();
 
   const [transIn, setTransIn] = useState('');
   const [transOut, setTransOut] = useState('');
@@ -70,6 +72,7 @@ export const AIHub: React.FC = () => {
     if (!chatIn.trim()) return;
     const m = chatIn; 
     setChatIn('');
+    setShowStarters(false);
     setChatLog(p => [...p, {role:'u', t:m}]);
     setIsChatting(true);
     try {
@@ -124,6 +127,27 @@ export const AIHub: React.FC = () => {
                 </div>
               </div>
             ))}
+            {showStarters && chatLog.length === 1 && (
+              <div className="mt-6 space-y-2">
+                <div className="flex items-center gap-2 text-[9px] font-bold text-slate-500 uppercase tracking-widest px-1">
+                  <Lightbulb size={12} />
+                  Try these questions:
+                </div>
+                <div className="space-y-2">
+                  {starterPrompts.map((prompt, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        setChatIn(prompt);
+                      }}
+                      className="w-full text-left p-3 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 rounded-lg text-xs text-slate-700 dark:text-slate-300 transition-all"
+                    >
+                      "{prompt}"
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             {isChatting && (
               <div className="flex justify-start animate-pulse">
                  <div className="flex gap-3 items-center">

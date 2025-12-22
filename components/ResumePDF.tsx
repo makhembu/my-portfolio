@@ -107,7 +107,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({
         </section>
 
         {/* Experience */}
-        <section style={{ marginBottom: '3px', flex: '1', minHeight: 0 }}>
+        <section style={{ marginBottom: '3px', minHeight: 0 }}>
           <h2 style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', margin: '0 0 4px 0', color: '#000', letterSpacing: '0.5px' }}>
             Professional Experience
           </h2>
@@ -176,8 +176,11 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({
             <h2 style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', margin: '0 0 2px 0', color: '#000', letterSpacing: '0.5px' }}>
               Education
             </h2>
-            <p style={{ fontSize: '8px', fontWeight: 'bold', margin: '0', color: '#000' }}>
+            <p style={{ fontSize: '8px', fontWeight: 'bold', margin: '0 0 1px 0', color: '#000' }}>
               {(profile as any).education}
+            </p>
+            <p style={{ fontSize: '8px', margin: '0', color: '#666' }}>
+              Jomo Kenyatta University of Agriculture and Technology (JKUAT) | 2014-2018
             </p>
           </div>
           <div>

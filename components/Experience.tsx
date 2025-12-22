@@ -7,7 +7,7 @@ import { Calendar, Briefcase, CheckCircle2, Award } from 'lucide-react';
 import { useLanguage, useResumeModal } from '@/lib/context';
 
 export const Experience: React.FC = () => {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const { setIsResumeOpen } = useResumeModal();
 
   return (
@@ -15,34 +15,34 @@ export const Experience: React.FC = () => {
       <div className="grid lg:grid-cols-[1fr_2.5fr] gap-12 lg:gap-20">
         <aside className="space-y-8 sticky top-32 h-fit">
           <div className="space-y-4">
-            <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600">Professional Track Record</h2>
-            <h3 className="font-display text-4xl font-bold dark:text-white text-slate-900 tracking-tight">Experience & Signal.</h3>
+            <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600">{t('professionalTrack')}</h2>
+            <h3 className="font-display text-4xl font-bold dark:text-white text-slate-900 tracking-tight">{t('professionalTrackTitle')}</h3>
             <p className="text-slate-500 text-lg font-light leading-relaxed italic border-l-2 border-indigo-600/30 pl-4">
-              "7+ years shipping production software. From infrastructure at scale to SaaS platforms. Always focused on impact."
+              "{lang === 'sw' ? 'Miaka 7+ inayobeba programu ya uzalishaji. Kutoka miundombinu kwa kiwango kikubwa hadi mifumo ya SaaS. Daima iliyozingatia matokeo.' : '7+ years shipping production software. From infrastructure at scale to SaaS platforms. Always focused on impact.'}"
             </p>
           </div>
           
           <div className="p-6 bg-slate-50 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10 space-y-6">
             <div className="flex items-center gap-3 text-indigo-600">
               <Award size={20} />
-              <span className="font-black text-[10px] uppercase tracking-widest">Strengths</span>
+              <span className="font-black text-[10px] uppercase tracking-widest">{t('strengths')}</span>
             </div>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <CheckCircle2 size={14} className="mt-0.5 text-emerald-500 shrink-0" />
-                <span className="text-xs text-slate-600 dark:text-slate-400">Full-stack TypeScript/Next.js architecture.</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">{t('fullstackArch')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle2 size={14} className="mt-0.5 text-emerald-500 shrink-0" />
-                <span className="text-xs text-slate-600 dark:text-slate-400">Production databases (PostgreSQL/Supabase).</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">{t('productionDB')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle2 size={14} className="mt-0.5 text-emerald-500 shrink-0" />
-                <span className="text-xs text-slate-600 dark:text-slate-400">Infrastructure & Linux administration.</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">{t('infrastructure')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle2 size={14} className="mt-0.5 text-emerald-500 shrink-0" />
-                <span className="text-xs text-slate-600 dark:text-slate-400">Localization expertise (Swahili/English).</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">{t('localization')}</span>
               </li>
             </ul>
           </div>
@@ -69,7 +69,7 @@ export const Experience: React.FC = () => {
                 </div>
 
                 <div className="space-y-4">
-                   <p className="text-[10px] font-black uppercase text-indigo-500 tracking-widest opacity-60">Personal Impact</p>
+                   <p className="text-[10px] font-black uppercase text-indigo-500 tracking-widest opacity-60">{t('personalImpact')}</p>
                    <ul className="space-y-3">
                     {exp.description.map((point, i) => (
                       <li key={i} className="flex gap-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed italic">
@@ -94,17 +94,17 @@ export const Experience: React.FC = () => {
       </div>
 
       <div className="mt-20 p-12 bg-indigo-600 rounded-[3rem] text-center space-y-6 shadow-2xl shadow-indigo-600/20">
-        <h4 className="text-3xl font-display font-bold text-white">Remove the Doubt.</h4>
-        <p className="text-indigo-100 text-lg font-light">Available for engineering roles where technical judgment and cultural nuance matter.</p>
+        <h4 className="text-3xl font-display font-bold text-white">{t('removeDoubt')}</h4>
+        <p className="text-indigo-100 text-lg font-light">{t('removeDoubtDesc')}</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
            <a href={`mailto:${portfolioData.socials.email}`} className="bg-white text-indigo-600 px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-indigo-50 transition-all shadow-xl">
-            Direct Contact
+            {t('directContact')}
           </a>
           <button 
             onClick={() => setIsResumeOpen(true)}
             className="bg-indigo-700 text-white px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-indigo-800 transition-all border border-indigo-500/30"
           >
-            Download Tech Specs
+            {t('downloadTechSpecs')}
           </button>
         </div>
       </div>

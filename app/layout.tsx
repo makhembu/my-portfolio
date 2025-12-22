@@ -3,7 +3,7 @@ import { AppContextProvider } from '@/lib/context';
 import { TrackProvider } from '@/lib/useTrackContext';
 import { ResumeProvider } from '@/lib/resumeContext';
 import { generateNextMetadata, getPersonSchema } from '@/lib/seoUtils';
-import { baseSEO, personSchema } from '@/seoData';
+import { baseSEO, personSchema } from '@/seoDataRefactored';
 import '@/styles/globals.css';
 
 // Generate comprehensive SEO metadata

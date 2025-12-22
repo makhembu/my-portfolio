@@ -1,4 +1,36 @@
+/**
+ * POST /api/resume/optimize
+ * AI-Powered Resume Optimizer with STRICT SAFETY CONSTRAINTS
+ * 
+ * SAFETY PRINCIPLES:
+ * - NO INVENTION: Never creates skills or experience the candidate doesn't have
+ * - NO EXAGGERATION: Reframes existing accomplishments, never inflates them
+ * - TRUTHFUL MATCHING: Match score reflects reality, not confidence theater
+ * - EMPHASIS ONLY: Reorders and emphasizes existing documented content
+ * - HONEST GAPS: Acknowledges what candidate doesn't have
+ * 
+ * RATE LIMITING:
+ * - 5 requests/minute per IP
+ * - Max job description: 10,000 characters
+ * - Timeout: 30 seconds
+ * 
+ * DATA INTEGRITY:
+ * - All candidate data comes from portfolio
+ * - No data is modified, only reordered and emphasized
+ * - Skill gaps are identified honestly
+ */
+
+import { NextRequest } from 'next/server';
 import { generateGeminiContent } from "@/lib/geminiClient";
+import {
+  getClientIP,
+  checkRateLimit,
+  validateRequestLength,
+  createRateLimitHeaders,
+  createErrorResponse,
+  withTimeout,
+  RATE_LIMIT_CONFIGS,
+} from '@/lib/apiSafety';
 
 /**
  * Remove markdown formatting from text
@@ -35,85 +67,132 @@ function cleanMarkdownFromResume(obj: any): any {
   return obj;
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    // Safety Check 1: Rate Limiting
+    const ip = getClientIP(request);
+    const rateLimit = checkRateLimit(ip, RATE_LIMIT_CONFIGS.optimizer);
+    const rateLimitHeaders = createRateLimitHeaders(rateLimit.remaining, rateLimit.resetTime);
+
+    if (!rateLimit.allowed) {
+      const resetTime = new Date(rateLimit.resetTime).toLocaleTimeString();
+      return createErrorResponse(
+        `Rate limit exceeded. Maximum 5 requests per minute. Reset at ${resetTime}`,
+        429,
+        rateLimitHeaders
+      );
+    }
+
+    // Safety Check 2: Parse and validate request
     const body = await request.json();
     const { jobDescription, candidateData } = body || {};
 
     if (!jobDescription || !candidateData) {
-      return Response.json(
-        { error: 'Missing required fields: jobDescription, candidateData' },
-        { status: 400 }
+      return createErrorResponse(
+        'Missing required fields: jobDescription, candidateData',
+        400,
+        rateLimitHeaders
       );
     }
 
-    const prompt = `You are an expert recruiter and resume optimizer. Analyze this job description and tailor the candidate's resume to match the job requirements perfectly.
+    // Safety Check 3: Request length validation
+    const jobDescValidation = validateRequestLength(
+      { text: jobDescription },
+      RATE_LIMIT_CONFIGS.optimizer.maxRequestLengthChars,
+      'jobDescription'
+    );
+
+    if (!jobDescValidation.valid) {
+      return createErrorResponse(
+        jobDescValidation.error || 'Job description too long',
+        400,
+        rateLimitHeaders
+      );
+    }
+
+    const prompt = `You are a resume optimization assistant with STRICT SAFETY CONSTRAINTS.
+
+*** CRITICAL RULES - DO NOT VIOLATE ***
+1. NEVER invent skills, projects, or experience the candidate doesn't have
+2. NEVER exaggerate accomplishments or inflate claims
+3. Only REORDER and EMPHASIZE existing documented experience
+4. Only MATCH documented skills to job requirements
+5. All suggestions must be TRUTHFUL about what the candidate has done
+6. If skill gap exists, acknowledge it honestly - don't invent expertise
+7. Match score reflects ACTUAL fit, not confidence theater
+8. Candidate's own documented content is the source of truth
 
 JOB DESCRIPTION:
 ${jobDescription}
 
-CANDIDATE DATA:
+CANDIDATE DOCUMENTED DATA (NEVER MODIFY):
 Name: ${candidateData.profile.firstName} ${candidateData.profile.lastName}
 Current Role: ${candidateData.profile.role}
-Years of Experience: ${candidateData.profile.yearsExperience}
-Location: ${candidateData.profile.location}
 Education: ${candidateData.profile.education}
 
-Experience:
+DOCUMENTED EXPERIENCE (Must reference exactly as shown):
 ${candidateData.experience
   .map(
-    (exp: any) => `
-- Role: ${exp.role} at ${exp.company} (${exp.period})
-  ${exp.description.map((d: string) => `• ${d}`).join('\n  ')}
-  Skills: ${exp.skills.join(', ')}
-`
+    (exp: any) => `- ${exp.role} at ${exp.company} (${exp.period}): ${exp.description.join('; ')}`
   )
   .join('\n')}
 
-Skills:
-- Frontend: ${candidateData.skills.frontend.join(', ')}
-- Backend: ${candidateData.skills.backend.join(', ')}
-- Infrastructure: ${candidateData.skills.infrastructure.join(', ')}
+DOCUMENTED SKILLS (Only these exist):
+Frontend: ${candidateData.skills.frontend.join(', ')}
+Backend: ${candidateData.skills.backend.join(', ')}
+Infrastructure: ${candidateData.skills.infrastructure.join(', ')}
 
-Projects:
+DOCUMENTED PROJECTS (Only these exist):
 ${candidateData.projects
   .map((p: any) => `- ${p.title}: ${p.description}`)
   .join('\n')}
 
-TASK: Optimize the resume to match this job description. Focus on:
-1. Reorder experience entries by relevance to the job
-2. Highlight skills that match the job requirements
-3. Rewrite experience bullet points to emphasize relevant achievements
-4. Identify top 5 matching keywords from the job description
-5. Calculate a match score (0-100) based on how well the candidate fits
+TASK: Analyze fit between job and documented candidate experience.
 
-Return a JSON object with:
+ALLOWED OPERATIONS:
+1. ✓ Reorder experience by relevance to job
+2. ✓ Emphasize existing skills that match requirements
+3. ✓ Reframe existing accomplishments to job context (without changing facts)
+4. ✓ Identify matching keywords from job description
+5. ✓ Highlight relevant projects
+6. ✓ Acknowledge skill gaps honestly
+
+FORBIDDEN OPERATIONS:
+✗ Invent skills candidate doesn't have documented
+✗ Inflate experience or claim expertise in untaught areas
+✗ Rewrite facts to be "more impressive"
+✗ Add technologies not in documented experience
+✗ Exaggerate project impact or scope
+
+Return JSON with TRUTHFUL optimization:
 {
-  "summary": "Optimized professional summary tailored to job requirements",
+  "summary": "Professional summary emphasizing strongest documented matches",
   "experience": [
     {
       "id": "original-id",
       "role": "Job Title",
       "company": "Company Name",
       "period": "Date Range",
-      "description": ["bullet 1 (optimized for job)", "bullet 2"],
-      "skills": ["relevant", "skills"],
-      "relevanceScore": 95
+      "description": ["ORIGINAL bullet point with job context emphasized"],
+      "skills": ["skills candidate actually has from this role"],
+      "relevanceScore": "score based on actual match, 0-100"
     }
   ],
-  "skills": {
-    "frontend": ["relevant frontend skills only"],
-    "backend": ["relevant backend skills only"],
-    "infrastructure": ["relevant infra skills only"]
-  },
-  "relevantProjects": ["project 1 title", "project 2 title"],
-  "keywordMatches": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
-  "matchScore": 85
+  "matchedSkills": ["skill1", "skill2"], // Only documented skills
+  "skillGaps": ["required skill not in resume"], // Honest about gaps
+  "relevantProjects": ["project title"],
+  "keywordMatches": ["keyword1", "keyword2"],
+  "matchScore": "0-100 realistic score",
+  "note": "Honesty about fit - if score is low, explain why accurately"
 }
 
-Be strategic - highlight the candidate's strongest matches and deemphasize less relevant experience.`;
+Remember: This is optimization through EMPHASIS, not INVENTION.
+Candidate's integrity matters more than inflating match score.`;
 
-    const responseText = await generateGeminiContent("gemini-2.5-flash", prompt);
+    const responseText = await withTimeout(
+      generateGeminiContent("gemini-2.5-flash", prompt),
+      RATE_LIMIT_CONFIGS.optimizer.timeoutSeconds
+    );
 
     if (!responseText) {
       throw new Error('Empty response from AI model');
@@ -130,12 +209,37 @@ Be strategic - highlight the candidate's strongest matches and deemphasize less 
     // Clean markdown formatting from all text fields
     optimizedResume = cleanMarkdownFromResume(optimizedResume);
 
-    return Response.json(optimizedResume);
+    return Response.json(optimizedResume, {
+      headers: rateLimitHeaders,
+    });
   } catch (error) {
-    console.error('Resume optimization error:', error);
-    return Response.json(
-      { error: 'Failed to optimize resume. Please try again.' },
-      { status: 500 }
+    const ip = getClientIP(request as NextRequest);
+    const rateLimit = checkRateLimit(ip, RATE_LIMIT_CONFIGS.optimizer);
+    const rateLimitHeaders = createRateLimitHeaders(rateLimit.remaining, rateLimit.resetTime);
+
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Resume optimization error:', errorMessage);
+
+    if (errorMessage.includes('timeout')) {
+      return createErrorResponse(
+        'Request took too long. Job descriptions may be too long or system is busy. Please try again.',
+        504,
+        rateLimitHeaders
+      );
+    }
+
+    if (errorMessage.includes('Failed to parse')) {
+      return createErrorResponse(
+        'AI response parsing failed. Please try again.',
+        502,
+        rateLimitHeaders
+      );
+    }
+
+    return createErrorResponse(
+      'Failed to optimize resume. Please try again later.',
+      500,
+      rateLimitHeaders
     );
   }
 }

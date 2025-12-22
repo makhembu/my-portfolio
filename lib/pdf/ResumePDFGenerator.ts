@@ -28,10 +28,14 @@ export class ResumePDFGenerator {
 
   /**
    * Filter experience based on track and recency (hide jobs started >5 years ago, except ongoing roles)
+   * Also hides explicitly outdated roles that are no longer relevant to current job search
    */
   private getFilteredExperience() {
     const now = new Date();
     const fiveYearsAgo = new Date(now.getFullYear() - 5, now.getMonth(), now.getDate());
+
+    // IDs of jobs to hide from PDF downloads (still visible on site)
+    const hideInPdfIds = new Set(['exp-3', 'exp-4']); // IT Technician & Infrastructure Lead, Android Developer
 
     let filtered = this.data.experience;
     
@@ -39,6 +43,9 @@ export class ResumePDFGenerator {
     if (this.track !== 'both') {
       filtered = filtered.filter(exp => exp.track === this.track || exp.track === 'both');
     }
+
+    // Hide explicitly outdated roles from PDF
+    filtered = filtered.filter(exp => !hideInPdfIds.has(exp.id));
 
     // Filter by recency: keep jobs that started within last 5 years OR are still ongoing (Present)
     filtered = filtered.filter(exp => {

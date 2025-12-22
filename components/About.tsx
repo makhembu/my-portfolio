@@ -66,23 +66,23 @@ export const About: React.FC = () => {
             <SummaryRenderer text={profileVariant.summary} />
           </div>
           <p className="text-lg text-slate-500 italic">
-            "My dual expertise as an engineer and a linguist allows me to approach problems from both a logical and a human perspective, at a global scale."
+            {lang === 'sw' ? t('dualExpertise') : "I work across engineering and language. That helps me see problems both logically and from a human perspective. And I do this work globally."}
           </p>
           <div className="grid grid-cols-2 gap-8 pt-4">
             <div className="space-y-2">
-              <div className="text-[10px] font-black uppercase text-indigo-500 tracking-widest">Experience</div>
-              <p className="text-base font-bold dark:text-white">6+ Years</p>
+              <div className="text-[10px] font-black uppercase text-indigo-500 tracking-widest">{lang === 'sw' ? 'MIAKA' : 'EXPERIENCE'}</div>
+              <p className="text-base font-bold dark:text-white">{new Date().getFullYear() - 2017}+ {lang === 'sw' ? 'Miaka' : 'Years'}</p>
             </div>
             <div className="space-y-2">
-              <div className="text-[10px] font-black uppercase text-indigo-500 tracking-widest">Alumni</div>
+              <div className="text-[10px] font-black uppercase text-indigo-500 tracking-widest">{t('alumniLabel')}</div>
               <p className="text-sm font-bold dark:text-white flex items-center gap-2"><GraduationCap size={16}/> JKUAT</p>
             </div>
             <div className="space-y-2">
-              <div className="text-[10px] font-black uppercase text-indigo-500 tracking-widest">Base</div>
+              <div className="text-[10px] font-black uppercase text-indigo-500 tracking-widest">{t('baseLabel')}</div>
               <p className="text-sm font-bold dark:text-white flex items-center gap-2"><MapPin size={16}/> {portfolioData.profile.location}</p>
             </div>
             <div className="space-y-2">
-              <div className="text-[10px] font-black uppercase text-indigo-500 tracking-widest">Role</div>
+              <div className="text-[10px] font-black uppercase text-indigo-500 tracking-widest">{t('roleLabel')}</div>
               <p className="text-sm font-bold dark:text-white truncate">{profileVariant.role}</p>
             </div>
           </div>
@@ -91,27 +91,27 @@ export const About: React.FC = () => {
         <div className="relative">
           <div className="absolute inset-0 bg-indigo-600/5 dark:bg-indigo-600/10 rounded-[3rem] -rotate-3"></div>
           <div className="relative bg-white dark:bg-[#0d0e12] border border-slate-200 dark:border-white/5 p-12 rounded-[3rem] shadow-2xl space-y-12">
-            <h4 className="font-display text-2xl font-bold text-indigo-600">Technical Pillar</h4>
+            <h4 className="font-display text-2xl font-bold text-indigo-600">{t('technicalPillar')}</h4>
             <div className="grid gap-8">
               <div className="flex gap-6">
                 <div className="p-3 bg-indigo-50 dark:bg-indigo-950/30 rounded-2xl text-indigo-600 h-fit"><Zap size={24}/></div>
                 <div>
-                  <p className="font-bold mb-1">High-Performance Frontend</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">Deep focus on Next.js, state management strategies, and web vitals optimization for global users.</p>
+                  <p className="font-bold mb-1">{t('highPerformance')}</p>
+                  <p className="text-xs text-slate-500 leading-relaxed">{t('highPerformanceDesc')}</p>
                 </div>
               </div>
               <div className="flex gap-6">
                 <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-2xl text-emerald-600 h-fit"><Database size={24}/></div>
                 <div>
-                  <p className="font-bold mb-1">Resilient Backend Systems</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">Designing type-safe APIs with Node.js and building scalable data models in PostgreSQL.</p>
+                  <p className="font-bold mb-1">{lang === 'sw' ? 'Mifumo ya Nyuma Thabiti' : 'Resilient Backend Systems'}</p>
+                  <p className="text-xs text-slate-500 leading-relaxed">{lang === 'sw' ? 'Kutengeneza APIs salama na kujenga miundo ya data inayoeza katika PostgreSQL.' : 'Write solid APIs with Node.js. Build data structures in PostgreSQL that work at scale.'}</p>
                 </div>
               </div>
               <div className="flex gap-6">
                 <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-2xl text-blue-600 h-fit"><Globe size={24}/></div>
                 <div>
-                  <p className="font-bold mb-1">Cultural Localization</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">Expert Swahili translation and UI/UX adaptation for international markets.</p>
+                  <p className="font-bold mb-1">{lang === 'sw' ? 'Lokalisasi ya Kitamaduni' : 'Cultural Localization'}</p>
+                  <p className="text-xs text-slate-500 leading-relaxed">{lang === 'sw' ? 'Tafsiri ya Kiswahili na UI/UX inayoboreswa kwa soko la kimataifa.' : 'Expert Swahili translation and UI/UX adaptation for international markets.'}</p>
                 </div>
               </div>
             </div>

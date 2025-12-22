@@ -60,6 +60,22 @@ export const ResumeModalContext = createContext<ResumeModalContextType>({
   setIsResumeOpen: () => {},
 });
 
+/**
+ * AIHubModalContextType - Global AI Hub modal state
+ */
+export interface AIHubModalContextType {
+  isAIHubOpen: boolean;
+  setIsAIHubOpen: (value: boolean) => void;
+}
+
+/**
+ * AIHubModalContext - React Context for managing AI Hub modal visibility
+ */
+export const AIHubModalContext = createContext<AIHubModalContextType>({
+  isAIHubOpen: false,
+  setIsAIHubOpen: () => {},
+});
+
 interface AppContextProviderProps {
   children: ReactNode;
 }
@@ -72,6 +88,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   const [darkMode, setDarkMode] = useState(false);
   const [lang, setLang] = useState<Language>('en');
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [isAIHubOpen, setIsAIHubOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
 
   // Hydrate state from localStorage on client mount
@@ -136,7 +153,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
     <LanguageContext.Provider value={{ lang, setLang, t }}>
       <ThemeContext.Provider value={{ darkMode, setDarkMode, toggleTheme }}>
         <ResumeModalContext.Provider value={{ isResumeOpen, setIsResumeOpen }}>
-          {children}
+          <AIHubModalContext.Provider value={{ isAIHubOpen, setIsAIHubOpen }}>
+            {children}
+          </AIHubModalContext.Provider>
         </ResumeModalContext.Provider>
       </ThemeContext.Provider>
     </LanguageContext.Provider>
@@ -172,6 +191,17 @@ export const useResumeModal = () => {
   const context = useContext(ResumeModalContext);
   if (!context) {
     throw new Error('useResumeModal must be used within AppContextProvider');
+  }
+  return context;
+};
+
+/**
+ * Hook to use AI Hub modal context
+ */
+export const useAIHubModal = () => {
+  const context = useContext(AIHubModalContext);
+  if (!context) {
+    throw new Error('useAIHubModal must be used within AppContextProvider');
   }
   return context;
 };

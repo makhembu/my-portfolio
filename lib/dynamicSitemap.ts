@@ -1,11 +1,17 @@
-import { MetadataRoute } from 'next';
-import { readSEOCache } from '@/lib/seoStorage';
-import { siteConfig } from '@/lib/config';
-
 /**
- * Dynamic Sitemap Generator
- * Pulls from actual pages and trend data instead of hardcoding
+ * REFACTORED DYNAMIC SITEMAP GENERATOR (v2)
+ * ==========================================
+ * REMOVED: Dependencies on SEO cache, trend data, AI-generated metadata
+ * KEPT: Static page list, priority mapping, changefreq logic
+ * MODIFIED: Use portfolioData for actual content, track content changes only
+ * 
+ * Philosophy: Changefreq tied to actual content changes, not daily arbitrary updates
+ * Last Updated: 2025-12-22
  */
+
+import { MetadataRoute } from 'next';
+import { siteConfig } from '@/lib/config';
+import { portfolioData } from '@/portfolioData';
 
 interface SitemapEntry {
   url: string;
@@ -15,92 +21,94 @@ interface SitemapEntry {
 }
 
 /**
- * Get dynamic pages from SEO cache
- * These are pages that have been optimized with trend data
+ * URL mapping for portfolio sections
+ * Maps section IDs to actual anchor URLs
  */
-export const getDynamicPages = async (): Promise<SitemapEntry[]> => {
-  try {
-    const seoCache = await readSEOCache();
-    const baseUrl = siteConfig.baseUrl;
-    const lastModified = new Date();
-
-    const pages: SitemapEntry[] = [];
-
-    // Add pages from SEO cache with their actual last modified dates
-    for (const [pageId, seoData] of seoCache) {
-      const pageUrl = mapPageIdToUrl(pageId);
-      if (pageUrl) {
-        pages.push({
-          url: `${baseUrl}${pageUrl}`,
-          lastModified: new Date(seoData.lastUpdated),
-          changeFrequency: 'daily', // Dynamic content = frequent updates
-          priority: getPagePriority(pageId),
-        });
-      }
-    }
-
-    return pages;
-  } catch (error) {
-    console.error('Error getting dynamic pages:', error);
-    return [];
-  }
+const PAGE_URL_MAP: Record<string, string> = {
+  home: '/',
+  about: '/#about',
+  projects: '/#projects',
+  experience: '/#experience',
+  aihub: '/#aihub',
+  contact: '/#contact',
 };
 
 /**
- * Map page IDs to actual URLs
- * @param pageId - Page identifier
- * @returns URL path or null
+ * Page priority mapping
+ * Based on importance and CTR expectations
  */
-function mapPageIdToUrl(pageId: string): string | null {
-  const urlMap: Record<string, string> = {
-    home: '/',
-    about: '/#about',
-    projects: '/#projects',
-    experience: '/#experience',
-    aihub: '/#aihub',
-    contact: '/#contact',
-  };
-
-  return urlMap[pageId] || null;
-}
+const PAGE_PRIORITY_MAP: Record<string, number> = {
+  home: 1.0,       // Entry point - highest priority
+  projects: 0.9,   // Portfolio work - high engagement
+  experience: 0.9, // Professional credibility
+  about: 0.8,      // Context - moderate importance
+  aihub: 0.7,      // Tools/features - moderate
+  contact: 0.6,    // Action item - lower priority
+};
 
 /**
- * Get priority for URL based on importance
- * @param pageId - Page identifier
- * @returns Priority (0.0-1.0)
+ * Change frequency mapping
+ * Based on actual content update patterns
+ * - home: weekly (layout, featured projects change)
+ * - projects: weekly (new projects, case study updates)
+ * - experience: monthly (rarely changes after initial setup)
+ * - about: monthly (biographical info stable)
+ * - aihub: weekly (features, API integrations evolve)
+ * - contact: yearly (contact info relatively static)
  */
-function getPagePriority(pageId: string): number {
-  const priorityMap: Record<string, number> = {
-    home: 1.0,
-    about: 0.9,
-    projects: 0.9,
-    experience: 0.9,
-    aihub: 0.8,
-    contact: 0.7,
-  };
+const PAGE_CHANGEFREQ_MAP: Record<string, 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'> = {
+  home: 'weekly',
+  projects: 'weekly',
+  experience: 'monthly',
+  about: 'monthly',
+  aihub: 'weekly',
+  contact: 'yearly',
+};
 
-  return priorityMap[pageId] || 0.5;
-}
+/**
+ * IMPORTANT: Use git commit timestamp for lastModified
+ * This ensures sitemap only shows actual changes, not arbitrary daily updates
+ * Format: Run this at build time to extract git timestamps
+ * 
+ * For now: Use portfolio data's last update date
+ * In production: Replace with git log parsing
+ */
+const PORTFOLIO_LAST_UPDATE = new Date('2025-12-22');
+
+/**
+ * Generate core static pages
+ * These are portfolio sections that always exist
+ */
+const generateCorePages = (): SitemapEntry[] => {
+  const baseUrl = siteConfig.baseUrl;
+
+  return Object.entries(PAGE_URL_MAP).map(([pageId, path]) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: PORTFOLIO_LAST_UPDATE,
+    changeFrequency: PAGE_CHANGEFREQ_MAP[pageId] || 'monthly',
+    priority: PAGE_PRIORITY_MAP[pageId] || 0.5,
+  }));
+};
 
 /**
  * Generate core static pages
  */
 const getCorePages = (): SitemapEntry[] => {
   const baseUrl = siteConfig.baseUrl;
-  const lastModified = new Date();
+  const lastModified = PORTFOLIO_LAST_UPDATE;
 
   return [
     {
       url: baseUrl,
       lastModified,
-      changeFrequency: 'daily',
+      changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
       url: `${baseUrl}/#about`,
       lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.9,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/#projects`,
@@ -117,60 +125,52 @@ const getCorePages = (): SitemapEntry[] => {
     {
       url: `${baseUrl}/#aihub`,
       lastModified,
-      changeFrequency: 'daily',
-      priority: 0.8,
+      changeFrequency: 'weekly',
+      priority: 0.7,
     },
   ];
 };
 
 /**
- * Generate protocol pages
+ * Generate protocol pages (sitemap, robots)
  */
 const getProtocolPages = (): SitemapEntry[] => {
   const baseUrl = siteConfig.baseUrl;
-  const lastModified = new Date();
+  const lastModified = PORTFOLIO_LAST_UPDATE;
 
   return [
     {
       url: `${baseUrl}/sitemap.xml`,
       lastModified,
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,
       priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/robots.txt`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.3,
     },
   ];
 };
 
 /**
- * Generate complete dynamic sitemap
- * Combines static pages with dynamic trend-optimized pages
+ * Generate complete sitemap
+ * Static pages only - no dynamic cache dependencies
+ * Changefreq based on actual content change patterns
  */
 export async function generateDynamicSitemap(): Promise<MetadataRoute.Sitemap> {
   try {
-    const [corePages, protocolPages, dynamicPages] = await Promise.all([
-      Promise.resolve(getCorePages()),
-      Promise.resolve(getProtocolPages()),
-      getDynamicPages(),
-    ]);
+    const corePages = getCorePages();
+    const protocolPages = getProtocolPages();
 
     // Combine all pages, remove duplicates
     const urlSet = new Set<string>();
     const entries: MetadataRoute.Sitemap = [];
 
     // Add in priority order
-    [corePages, dynamicPages, protocolPages].forEach((pageGroup) => {
+    [corePages, protocolPages].forEach((pageGroup) => {
       pageGroup.forEach((page) => {
         if (!urlSet.has(page.url)) {
           urlSet.add(page.url);
           entries.push({
             url: page.url,
             lastModified: page.lastModified,
-            changeFrequency: page.changeFrequency as any,
+            changeFrequency: page.changeFrequency,
             priority: page.priority,
           });
         }
@@ -179,31 +179,27 @@ export async function generateDynamicSitemap(): Promise<MetadataRoute.Sitemap> {
 
     return entries;
   } catch (error) {
-    console.error('Error generating dynamic sitemap:', error);
+    console.error('Error generating sitemap:', error);
     // Fallback to core pages
     return getCorePages().map((p) => ({
       url: p.url,
       lastModified: p.lastModified,
-      changeFrequency: p.changeFrequency as any,
+      changeFrequency: p.changeFrequency,
       priority: p.priority,
     }));
   }
 }
 
 /**
- * Get sitemap statistics
+ * Get sitemap statistics for monitoring
  */
 export async function getSitemapStats() {
-  const allPages = [
-    ...getCorePages(),
-    ...getProtocolPages(),
-    ...(await getDynamicPages()),
-  ];
+  const allPages = [...getCorePages(), ...getProtocolPages()];
 
   return {
     totalEntries: allPages.length,
-    lastModified: new Date().toISOString(),
-    dynamicPages: (await getDynamicPages()).length,
-    staticPages: getCorePages().length,
+    lastModified: PORTFOLIO_LAST_UPDATE.toISOString(),
+    corePages: getCorePages().length,
+    protocolPages: getProtocolPages().length,
   };
 }

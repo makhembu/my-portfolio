@@ -35,10 +35,16 @@ export async function optimizeResumeForJob(
   track: CareerTrack = 'both'
 ): Promise<OptimizedResume> {
   try {
+    // IDs of jobs to hide from PDF downloads (still visible on site)
+    const hideInPdfIds = new Set(['exp-3', 'exp-4']); // IT Technician & Infrastructure Lead, Android Developer
+
     // Filter experience by track AND recency (last 5 years only)
     let filteredExperience = track === 'both' 
       ? portfolioData.experience 
       : portfolioData.experience.filter(exp => exp.track === track || exp.track === 'both');
+    
+    // Hide explicitly outdated roles from PDF
+    filteredExperience = filteredExperience.filter(exp => !hideInPdfIds.has(exp.id));
     
     // Apply 5-year recency filter (same as normal PDF)
     const now = new Date();

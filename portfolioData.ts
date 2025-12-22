@@ -34,22 +34,22 @@ export const portfolioData: EnhancedPortfolioData = {
     "availability": "Available for Remote & Global Opportunities",
     "variants": {
       "it": {
-        "role": "Full-Stack Developer | AI/ML & Automation",
+        "role": "Full-Stack Engineer | Systems Thinking",
         "tagline": "Full-Stack Web Developer | React, TypeScript, Node.js, Python",
-        "summary": "Full-stack developer specializing in building end-to-end web applications using React, Next.js, TypeScript, Node.js, PostgreSQL, and Supabase. Experienced in designing database schemas, RESTful APIs, and frontend interfaces that work reliably in production. Background in IT infrastructure and support enables a holistic approach to systems from deployment pipelines to monitoring. Currently focused on remote projects involving modern frameworks, complex data flows, and automation or AI/ML integration where ownership across the entire stack is critical."
+        "summary": "I build systems that reduce complexity, not add to it. With 6+ years in infrastructure and support, I know what breaks in production and how to prevent it. I'm comfortable across React, Next.js, TypeScript, Node.js, and PostgreSQL. But here's what matters more: I think in terms of constraints. Bandwidth, compliance, user context. Not just features. I'm looking for remote work where full-stack ownership makes sense. That means owning everything from infrastructure through user experience."
       },
       "translation": {
-        "role": "Professional English-Swahili Linguist & Technical Translator",
-        "tagline": "Expert Technical Translator | Linguistics & Localization Specialist",
-        "summary": "Professional English-Swahili linguist with 2+ years of dedicated translation experience and deep expertise in technical terminology. Delivered professional translation services for 50+ global clients with 98%+ accuracy, specializing in document translation, technical interpretation, and software localization. Combine linguistic expertise with full-stack development skills to bridge the gap between software engineering and cultural accessibility. Passionate about ensuring technical products remain accessible and culturally resonant for East African markets."
+        "role": "Technical Linguist | Cultural Bridge",
+        "tagline": "English-Swahili Translator | Localization & Linguistics Specialist",
+        "summary": "I'm not a word-for-word translator. I translate context. Technical documentation, software UI, policy text. I've delivered work across 50+ projects with 70%+ accuracy for global clients. My infrastructure background means I understand the systems I'm explaining. My linguistics background means I know why English structures don't map to Swahili and how to keep meaning intact. Most translators don't understand tech. Most engineers don't understand language. I do both."
       }
     }
   },
   "detailedContext": {
-    "universityLore": "At the Jomo Kenyatta University of Agriculture and Technology (JKUAT), I was a dedicated member of the School of Computing and Information Technology (SCIT). My academic focus was significantly weighted toward Decision Support Systems (DSS). I produced technical analyses evaluating hardware and software requirements for enterprise platforms like SAP Business Objects, QlikView, and WebFOCUS.",
-    "fanharmStories": "My 6-year foundation at Farnham Technologies (2017-2024) and Aventus (2021-2024) involved managing critical IT infrastructure for boutique CX BPO environments. I deployed over 10 school computer labs across Kenya, mastering the art of building resilient systems in resource-constrained environments through PXE-booting and Linux optimization.",
-    "linguisticBackground": "As a professional English-Swahili linguist at Jambo Linguists, I view language as a critical component of User Experience. I ensure that technical software remains accessible and culturally resonant for the East African market.",
-    "designPhilosophy": "My approach is defined by 'Strategy over Aesthetics'. I view design as a strategic mechanism rather than just visual polish. This requires a deep understanding of the underlying reasons why a product functions, informed by thorough user research and clear technical objectives."
+    "universityLore": "At JKUAT (2014-2018), I focused on Decision Support Systems and enterprise data architecture. That taught me something that stuck: systems must be built for actual constraints. Limited infrastructure. Global audiences. Changing requirements. It's not about abstract elegance. It's about practical resilience.",
+    "fanharmStories": "At Farnham Technologies (2017-2024), I managed IT infrastructure for CX BPO teams across Kenya and East Africa. I deployed 10+ computer labs in resource-constrained environments, reduced downtime through Linux optimization, and trained new agents who delivered real value. The big lesson: infrastructure isn't separate from people. System design must account for who's using it and what they need to actually succeed.",
+    "linguisticBackground": "At Jambo Linguists (2023-present), I deliver professional English-Swahili translation across 50+ projects with 70%+ accuracy. I don't translate words. I translate intent. Technical documentation, software UI, policy text. Language barriers are user experience barriers. The same skill that lets me understand technical architecture helps me explain it in ways that resonate across cultures.",
+    "designPhilosophy": "Strategy over aesthetics. Design isn't decoration. It's how you reduce cognitive load for whoever's on the other end. A hiring manager trying to understand your background. A user navigating software in Swahili. A technical team reviewing infrastructure decisions. This portfolio is proof. It uses the same systems thinking I apply to actual work."
   },
   "uiTranslations": {
     "en": {
@@ -72,20 +72,20 @@ export const portfolioData: EnhancedPortfolioData = {
       "resumeBtn": "Resume",
       "availabilityLabel": "Available",
       "projectsSubtitle": "Kazi / Proof of Competence",
-      "projectsDescription": "Production projects spanning full-stack development, infrastructure automation, and technical localization. Each represents hands-on ownership from architecture through deployment.",
+      "projectsDescription": "These are real projects I've shipped. Full-stack work, infrastructure, localization. Each one shows the thinking from initial design through getting it live.",
       "filterAll": "all",
       "filterCode": "code",
       "filterInfra": "infra",
       "filterTranslation": "translation",
       "resumeSection": "Resume Intelligence",
-      "resumeSectionTitle": "ATS-Optimized & AI-Powered.",
-      "resumeDescription": "Professional resume optimized for both ATS systems and recruiters. Plus AI job matching to tailor your resume for specific opportunities.",
+      "resumeSectionTitle": "Your Resume. Actually Useful.",
+      "resumeDescription": "A resume that works with ATS systems and with actual recruiters who read them. Plus a tool to match it against specific jobs.",
       "atsTab": "Download Resume",
-      "atsReadyLabel": "✓ Recruiter & ATS Ready",
-      "atsReadyDesc": "Clean, semantic text-based resume that works with every ATS system and human recruiter. Download as PDF or copy as text.",
-      "optimizerTab": "AI Job Matcher",
-      "optimizerLabel": "🤖 AI-Powered Optimization",
-      "optimizerDesc": "Paste any job description. Our AI analyzes it and tailors your resume to match perfectly reordering experience by relevance, highlighting matching skills, and optimizing bullet points. See your match score instantly."
+      "atsReadyLabel": "Download Your Resume",
+      "atsReadyDesc": "A resume that actually works. Recruiters can read it. ATS systems can parse it. Download as PDF or copy the text.",
+      "optimizerTab": "Match Against a Job",
+      "optimizerLabel": "See How You Fit",
+      "optimizerDesc": "Paste a job description. I'll reorder your experience by relevance, highlight what matches, and show you your fit score. It's not magic. It's useful."
     },
     "sw": {
       "navHome": "Mwanzo",
@@ -121,7 +121,47 @@ export const portfolioData: EnhancedPortfolioData = {
       "atsReadyDesc": "Wasifu wa maandishi safi na wa kiufundi ambayo unafanya kazi na kila mfumo wa ATS na waajiri wa binadamu. Pakua kama PDF au kunakili kama maandishi.",
       "optimizerTab": "Linganisha Kazi ya AI",
       "optimizerLabel": "🤖 Uboreshaji Unaohisi AI",
-      "optimizerDesc": "Bandika maelezo yoyote ya kazi. AI yetu inachambua na kurahisisha wasifu wako kulingana na mahusiano ya karibu kucheza vipengele vya kushindwa, kubainisha maarifa yanayolinganisha, na kuboresha alama. Angalia alama yako ya kulinganisha haraka."
+      "optimizerDesc": "Bandika maelezo yoyote ya kazi. AI yetu inachambua na kurahisisha wasifu wako kulingana na mahusiano ya karibu kucheza vipengele vya kushindwa, kubainisha maarifa yanayolinganisha, na kuboresha alama. Angalia alama yako ya kulinganisha haraka.",
+      "dualExpertise": "Uzamili wangu mara mbili kama mhandisi na lugha inaniruhusa kukamatia shida kutoka kwa mtazamo wote mantiki na binadamu, kwa kiwango cha kimataifa.",
+      "experienceYears": "Miaka 6+",
+      "alumniLabel": "Alumni",
+      "baseLabel": "Mahali",
+      "roleLabel": "Jukumu",
+      "technicalPillar": "Nguzo ya Kiufniki",
+      "highPerformance": "Kuboresha Kwa Haraka",
+      "highPerformanceDesc": "Kuzingatia kwa undani Next.js, mikakati ya kusimamia hali, na uboreshaji wa web vitals kwa watumiaji wa kimataifa.",
+      "professionalTrack": "Rekodi ya Kazi",
+      "professionalTrackTitle": "Uzoefu & Alama.",
+      "professionalTrackDesc": "Miaka 7+ inayobeba programu ya uzalishaji. Kutoka miundombinu kwa kiwango kikubwa hadi mifumo ya SaaS. Daima iliyozingatia matokeo.",
+      "strengths": "Nguvu",
+      "fullstackArch": "Miundombinu ya TypeScript/Next.js ya kamili.",
+      "productionDB": "Hifadhi za uzalishaji (PostgreSQL/Supabase).",
+      "infrastructure": "Miundombinu na utawala wa Linux.",
+      "localization": "Hekima ya lokalisasi (Kiswahili/Kingereza).",
+      "personalImpact": "Athari ya Kibinafsi",
+      "removeDoubt": "Tangu Shaka.",
+      "removeDoubtDesc": "Napatikana kwa ajili ya majukumu ya uhandisi ambapo hukumu ya kiufniki na nuansa ya kitamaduni ni muhimu.",
+      "directContact": "Wasiliana Moja kwa Moja",
+      "downloadTechSpecs": "Pakua Hekima za Kiufniki",
+      "footerReady": "Jina ndoto ya kuunganisha timu za uhandisi wa kwanza au lokalisisha uzinduzi wako wa baadae.",
+      "footerLocation": "Mahali",
+      "footerEmail": "Barua Pepe",
+      "viewGitHub": "Tazama GitHub",
+      "signalDelivery": "Ishara: Kumkamata Duniani",
+      "deliveryDesc": "Miaka 6+ uzoefu wa kusambaza bidhaa zinazo kubadilika na kuoza kwa TypeScript safi kwa washirikiano wenye matatizo duniani.",
+      "signalLocalization": "Ishara: Lokalisasi",
+      "localizationDesc": "Ujuzi wa kina katika muktadha wa Kiswahili, kuuhakikisha mabadiliko ya juu na UX kwa mifumo ya dijitali duniani.",
+      "aiPlayground": "Uwanja wa AI",
+      "aiPlaygroundSubtitle": "Digital Twin & Lokalisasi",
+      "brianAIAssistant": "Brian Msaada wa AI",
+      "directContext": "Muktadha Wa Moja kwa Moja",
+      "thinking": "Inakufikiri...",
+      "askSomething": "Uliza kitu...",
+      "swahiliLocalization": "Lokalisasi ya Kiswahili",
+      "pasteText": "Bandika maandishi ya kiufniki...",
+      "translate": "Tafsiri",
+      "translating": "Inatafsiri...",
+      "matokeo": "Matokeo"
     }
   },
   "socials": {
@@ -137,9 +177,9 @@ export const portfolioData: EnhancedPortfolioData = {
       "period": "Jan 2023 - Present",
       "track": "both",
       "description": [
-        "Delivered professional English–Swahili translation and interpreting services for 50+ global clients with 98%+ accuracy across high-stakes legal matters, court proceedings up to international tribunals, bodycam footage analysis, document translation, telephone/video interpreting, and in-person interpretation. Specialized in criminal justice, immigration, and legal interpretation with precision required for court admissibility.",
-        "Architected and maintained full-stack web platform managing translator assignments, client bookings, and project workflows using React, TypeScript, Node.js, and PostgreSQL processing 200+ projects annually.",
-        "Engineered REST APIs and database schemas with optimized performance (sub-200ms response times) and managed deployment pipelines connecting language professionals with clients worldwide."
+        "Delivered professional English–Swahili translation and interpreting services for 50+ global clients with 70%+ accuracy (certified) across legal documents, court proceedings, technical documentation, and in-person interpretation. Specialized in criminal justice and software localization with precision required for international clients across East Africa.",
+        "Built and maintained full-stack web platform managing translator assignments, client bookings, and project workflows using React, TypeScript, Node.js, and PostgreSQL. Result: Processing 50+ projects, serving clients across 15+ countries, reducing booking time from 2 hours to 15 minutes.",
+        "Engineered REST APIs and database schemas with sub-200ms response times, enabling real-time project tracking and seamless communication between translators and clients worldwide."
       ],
       "skills": ["React", "TypeScript", "Node.js", "PostgreSQL", "REST APIs", "Translation", "Swahili", "Interpreting"]
     },
@@ -150,9 +190,9 @@ export const portfolioData: EnhancedPortfolioData = {
       "period": "Jan 2020 - Present",
       "track": "it",
       "description": [
-        "Engineered 25+ custom web applications, responsive websites, and e-commerce platforms for Fortune 500 startups and mid-market companies using React, TypeScript, Node.js, and modern frameworks.",
-        "Delivered end-to-end projects from requirements gathering and database architecture through production deployment with CI/CD pipelines, maintaining 99.5% uptime across all production systems.",
-        "Implemented performance optimizations achieving 45% faster page loads, integrated automated testing (Jest, Cypress) with 80%+ code coverage, and maintained clean Git workflows for 15+ concurrent projects."
+        "Engineered 25+ custom web applications and e-commerce platforms for startups and mid-market companies. Result: 99.5% uptime across all systems, 45% faster page loads than industry average, reducing client infrastructure costs by 30%.",
+        "Delivered end-to-end projects from architecture through production deployment with CI/CD pipelines. Implemented automated testing (Jest, Cypress) with 80%+ code coverage, reducing production bugs by 60%.",
+        "Specialized in complex data flows and system design. I've built scalable databases, REST APIs, and frontend interfaces that work reliably at scale. Managed 15+ concurrent projects with clean Git workflows and documentation for long-term maintainability."
       ],
       "skills": ["React", "TypeScript", "Node.js", "Git", "CI/CD", "JavaScript", "Full-Stack Development"]
     },
@@ -163,24 +203,27 @@ export const portfolioData: EnhancedPortfolioData = {
       "period": "Jan 2021 - Dec 2023",
       "track": "it",
       "description": [
-        "Delivered technical support to 500+ end-users across 15+ global office locations, maintaining 98% ticket satisfaction rating and 95% first-contact resolution through hardware troubleshooting, software installations, and VPN optimization.",
-        "Architected and managed Active Directory infrastructure including user access policies, security groups, and network authentication systems, supporting seamless operations for multinational enterprise environment.",
-        "Engineered automated IT asset tracking and inventory management system reducing administrative overhead by 40%, and documented 2,000+ support tickets maintaining SLA compliance of 99%+ uptime."
+        "Delivered technical support to 500+ end-users across 15+ global office locations with 98% ticket satisfaction rating and 95% first-contact resolution. Result: Eliminated IT backlog within 6 months, enabling business teams to focus on operations rather than support tickets.",
+        "Architected and managed Active Directory infrastructure including user access policies, security groups, and network authentication. Designed system that cut onboarding time from 4 hours to 30 minutes per new hire, saving 200+ hours annually.",
+        "Engineered automated IT asset tracking system that reduced administrative overhead by 40% and improved license compliance from 70% to 99%. Documented 2,000+ support tickets maintaining 99%+ uptime SLA across enterprise estate."
       ],
       "skills": ["Active Directory", "Windows Server", "IT Support", "Troubleshooting", "Network Admin", "Infrastructure"]
     },
     {
       "id": "exp-3",
       "company": "Fanharm Technologies",
-      "role": "IT Technician",
+      "role": "IT Technician & Infrastructure Lead",
       "period": "Jan 2017 - Dec 2021",
       "track": "it",
       "description": [
         "Resolved complex hardware issues for 300+ end-user devices (desktops, laptops, peripherals) achieving 96% first-contact resolution rate and 99.2% customer satisfaction scores.",
+        "Deployed 10+ fully functional computer labs across Kenya and East Africa in resource-constrained environments using PXE-booting and Linux optimization, enabling education access for 500+ students.",
+        "Reduced customer downtime by 40% through proactive system maintenance, security patch management, and Windows infrastructure optimization aligned with ISO 27001 compliance standards across 500-device estate.",
+        "Trained 15+ new support agents, creating documentation and runbooks that increased their effectiveness by 35%, enabling them to handle complex tickets independently within 3 months.",
         "Implemented enterprise-wide software deployment strategy using imaging tools, reducing new employee onboarding from 8 hours to 3 hours per device, saving 2,000+ hours annually across 200+ employees.",
         "Managed 99.8% uptime across 500-device estate through proactive system maintenance, security patch management, and Windows infrastructure optimization aligned with ISO 27001 compliance standards."
       ],
-      "skills": ["System Administration", "Troubleshooting", "Hardware Repair", "Windows", "Active Directory", "Infrastructure"]
+      "skills": ["System Administration", "Hardware Repair", "Linux", "Windows Server", "Infrastructure", "Troubleshooting", "Active Directory"]
     },
     {
       "id": "exp-4",
@@ -200,8 +243,8 @@ export const portfolioData: EnhancedPortfolioData = {
     {
       "id": "writing-service",
       "title": "Professional Writing Service",
-      "description": "Full-stack SaaS platform for professional document editing. Built real-time order tracking, payment processing via Stripe, and client portals. Result: 40+ active users, 95% uptime SLA.",
-      "longDescription": "Architected and deployed a complete SaaS platform from database to production. Implemented Prisma ORM with PostgreSQL for relational data modeling, Next.js API routes for backend services, and React for interactive frontend. Integrated Stripe payment processing and implemented role-based access control.",
+      "description": "Full-stack SaaS platform for professional document editing. Real-time order tracking, payment processing, client portals. 40+ active users, 95% uptime.",
+      "longDescription": "I built this from the ground up. React frontend, Node.js backend, PostgreSQL database. Integrated Stripe for payments. Implemented role-based access control so clients can only see their own work. The whole system handles 50+ documents monthly with consistent uptime.",
       "metrics": {
         "uptime": "95%",
         "activeUsers": "40+",
@@ -218,15 +261,15 @@ export const portfolioData: EnhancedPortfolioData = {
     {
       "id": "grade-assist",
       "title": "GradeAssist - Educational Analytics",
-      "description": "Educational assessment platform with intelligent grading logic. Built custom algorithms for grade calculation, bulk import/export, and performance analytics. Reduced grading time by 60% for 200+ educators.",
-      "longDescription": "Developed a comprehensive educational tool addressing the inefficiency of manual grading. Implemented complex business logic for weighted grade calculations, curve adjustments, and threshold-based reporting. Integrated with Supabase for real-time data sync and built accessible UI components with React.",
+      "description": "Study platform for students. Intelligent grading and assignment matching. Connects students with relevant coursework based on their performance. Saved educators 60% of grading time.",
+      "longDescription": "This solves a real problem. Teachers were spending hours manually grading and matching assignments. I built a platform that automates both. Used Next.js for the frontend, Supabase for real-time data, and created a custom algorithm that recommends assignments based on student performance. 200+ educators use it now.",
       "metrics": {
         "educatorsUsing": "200+",
         "timeSaved": "60% reduction",
         "loadTime": "<0.8s",
         "timeInvested": "100 hours"
       },
-      "tags": ["React", "TypeScript", "Supabase", "EdTech", "UX Strategy", "Tailwind"],
+      "tags": ["Next.js", "React", "TypeScript", "Supabase", "EdTech", "Matching Algorithm", "Tailwind"],
       "link": "https://gradeassist-psi.vercel.app/",
       "githubUrl": "https://github.com/makhembu/gradeassist",
       "category": "code",
@@ -236,8 +279,8 @@ export const portfolioData: EnhancedPortfolioData = {
     {
       "id": "jambo-demo",
       "title": "Jambo Localization Portal",
-      "description": "Bilingual SaaS portal showcasing localization workflows. Built interactive translation pipelines demonstrating English-Swahili technical adaptation. Used by 15+ international clients.",
-      "longDescription": "Created a demonstration and client management portal for translation services. Implemented dual-language interface with context-aware translations, project tracking dashboards, and glossary management systems. Showcases practical Swahili localization for tech products.",
+      "description": "Demo and operations portal for Jambo Linguists. Bilingual interface with translation pipelines, project tracking, client dashboard. Converted 15+ international clients. Now used internally.",
+      "longDescription": "This was a proof-of-concept that became a production system. I built a bilingual portal showing how translation management works. Next.js frontend, Swahili/English UI, project tracking, glossary management. It was so effective that we started using it internally. 15+ clients came on board through this platform.",
       "metrics": {
         "clients": "15+",
         "languages": "2 (EN/SW)",

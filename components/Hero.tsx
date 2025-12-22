@@ -48,7 +48,7 @@ export const Hero: React.FC = () => {
                 rel="noopener noreferrer"
                 className="px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/10 hover:border-slate-400 dark:hover:border-white/30 transition-all text-center flex items-center justify-center gap-3 group"
               >
-                View GitHub <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                {lang === 'sw' ? t('viewGitHub') : 'View GitHub'} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </a>
               <button 
                 onClick={() => setIsResumeOpen(true)}
@@ -65,16 +65,16 @@ export const Hero: React.FC = () => {
                 <div className="bg-white dark:bg-[#0d0e12] border border-slate-200 dark:border-white/10 p-6 rounded-[2.5rem] shadow-3xl translate-x-6 hover:translate-x-0 transition-transform duration-700 group">
                   <div className="flex items-center gap-4 mb-3">
                     <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-lg group-hover:rotate-12 transition-transform"><Code2 size={20}/></div>
-                    <div className="font-display font-bold text-base">Signal: Global Delivery</div>
+                    <div className="font-display font-bold text-base">{lang === 'sw' ? t('signalDelivery') : 'Signal: Global Delivery'}</div>
                   </div>
-                  <p className="text-xs text-slate-500 leading-relaxed italic">"6+ years experience shipping scalable products with clean, maintainable TypeScript for international partners."</p>
+                  <p className="text-xs text-slate-500 leading-relaxed italic">"{lang === 'sw' ? t('deliveryDesc') : '6+ years shipping software that works. React, TypeScript, Node.js. For teams globally.'}"</p>
                 </div>
                 <div className="bg-white dark:bg-[#0d0e12] border border-slate-200 dark:border-white/10 p-6 rounded-[2.5rem] shadow-3xl -translate-x-6 hover:translate-x-0 transition-transform duration-700 group">
                   <div className="flex items-center gap-4 mb-3">
                     <div className="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center text-white shadow-lg group-hover:rotate-12 transition-transform"><Globe size={20}/></div>
-                    <div className="font-display font-bold text-base">Signal: Localization</div>
+                    <div className="font-display font-bold text-base">{lang === 'sw' ? t('signalLocalization') : 'Signal: Localization'}</div>
                   </div>
-                  <p className="text-xs text-slate-500 leading-relaxed italic">"Deep expertise in Swahili context, ensuring high conversion and UX for worldwide digital platforms."</p>
+                  <p className="text-xs text-slate-500 leading-relaxed italic">"{lang === 'sw' ? t('localizationDesc') : 'I translate for global products. English to Swahili. 50+ projects, 70%+ accuracy. I understand both the tech and the language.'}"</p>
                 </div>
              </div>
           </div>
