@@ -135,7 +135,7 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <nav className="fixed top-0 w-full z-50 glass bg-white/80 dark:bg-[#0a0a0b]/80 border-b border-slate-200 dark:border-white/5 py-4 transition-all print:hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex justify-between items-center">
           {/* Logo */}
           <Link 
             href="/"

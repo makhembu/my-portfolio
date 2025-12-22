@@ -55,7 +55,7 @@ export const About: React.FC = () => {
   const profileVariant = portfolioData.profile.variants.it;
   
   return (
-    <div className="max-w-7xl mx-auto px-6 py-20 space-y-32">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-20 space-y-16 md:space-y-32 overflow-hidden">
       <div className="grid lg:grid-cols-2 gap-20 items-center">
         <div className="space-y-8">
           <div className="space-y-4">

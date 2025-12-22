@@ -11,7 +11,7 @@ export const Hero: React.FC = () => {
   const { setIsResumeOpen } = useResumeModal();
 
   return (
-    <section className="min-h-[calc(100vh-100px)] flex flex-col justify-center py-8 md:py-12 px-6 overflow-hidden">
+    <section className="w-full min-h-[calc(100vh-100px)] flex flex-col justify-center py-8 md:py-12 px-4 sm:px-6 md:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-8 lg:gap-16 items-center">
           <div className="space-y-6 md:space-y-8 animate-in fade-in slide-in-from-left-8 duration-1000">

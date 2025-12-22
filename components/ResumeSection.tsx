@@ -19,7 +19,7 @@ export const ResumeSection: React.FC = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-20 space-y-12">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-20 space-y-8 md:space-y-12 overflow-hidden">
       {/* Header with New Framing */}
       <div className="space-y-4">
         <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600">Resume Tools</h2>

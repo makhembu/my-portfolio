@@ -99,7 +99,7 @@ export const AIHub: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-20 space-y-12">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-4 md:px-6 py-12 md:py-20 space-y-8 md:space-y-12 overflow-hidden">
       <div className="text-center space-y-4 mb-10 md:mb-16">
         <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600">Playground / Digital Twin</h2>
         <h3 className="font-display text-3xl md:text-5xl font-bold dark:text-white text-slate-900 leading-tight">Experience Intelligent Solutions.</h3>

@@ -238,7 +238,7 @@ export const Projects: React.FC = () => {
   const filterCategories = Object.keys(categoryLabels) as (keyof typeof categoryLabels)[];
 
   return (
-    <section id="projects-section" className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-16">
+    <section id="projects-section" className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-24 space-y-12 md:space-y-16 overflow-hidden">
       {/* Section Header */}
       <div className="space-y-6">
         <div className="space-y-3">

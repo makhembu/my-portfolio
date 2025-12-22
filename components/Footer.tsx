@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
   return (
     <>
       <footer className="border-t border-slate-200 dark:border-white/5 py-12 md:py-20 bg-slate-50 dark:bg-transparent overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 grid md:grid-cols-2 gap-8 md:gap-20 items-center">
           <div className="space-y-6 md:space-y-8">
             <h2 className="font-display text-4xl md:text-5xl font-bold dark:text-white text-slate-900 tracking-tighter">{t('footerContact')}</h2>
             <div className="flex gap-4 md:gap-6 flex-wrap">
