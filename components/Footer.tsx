@@ -31,7 +31,6 @@ export const Footer: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
           <div className="space-y-6 md:space-y-8">
             <h2 className="font-display text-4xl md:text-5xl font-bold dark:text-white text-slate-900 tracking-tighter">{t('footerContact')}</h2>
-            <p className="text-lg md:text-xl text-slate-500 font-light max-w-sm">{t('footerReady')}</p>
             <div className="flex gap-4 md:gap-6 flex-wrap">
               <a href={portfolioData.socials.github} target="_blank" rel="noopener noreferrer" className="p-3 md:p-4 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl hover:text-indigo-600 transition-all shadow-sm"><Github size={24}/></a>
               <a href={portfolioData.socials.linkedin} target="_blank" rel="noopener noreferrer" className="p-3 md:p-4 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl hover:text-indigo-600 transition-all shadow-sm"><Linkedin size={24}/></a>
