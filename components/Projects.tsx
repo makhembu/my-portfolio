@@ -16,14 +16,6 @@ const GRADIENT_COLORS = [
 ] as const;
 
 /**
- * Generate mshots preview URL from live project URL
- * Uses WordPress's mshots service to capture live website screenshots
- */
-function getMshotsUrl(liveUrl: string): string {
-  return `https://s0.wp.com/mshots/v1/${encodeURIComponent(liveUrl)}?w=800&h=600`;
-}
-
-/**
  * Get consistent gradient for a project ID
  * Uses hash of ID for deterministic color selection
  */
@@ -39,78 +31,45 @@ interface ProjectImageProps {
   title: string;
 }
 
-/**
- * ProjectImage Component
- * - Loads project screenshot from live URL via mshots service
- * - Falls back to GitHub image if mshots not available
- * - Falls back to gradient if image not available
- * - Shows loading spinner while image loads with timeout handling
- * - Gracefully falls back to gradient if image fails
- */
 const ProjectImage: React.FC<ProjectImageProps> = ({ projectId, liveUrl, fallbackImageUrl, title }) => {
   const [imgStatus, setImgStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
   const gradient = getProjectGradient(projectId);
   
   // Generate mshots URL from live URL, fall back to GitHub image
-  const previewUrl = liveUrl ? getMshotsUrl(liveUrl) : fallbackImageUrl;
-  const shouldShowImage = imgStatus === 'loaded' && previewUrl;
-
-  // Timeout mechanism for image loading (5 seconds)
-  React.useEffect(() => {
-    if (imgStatus === 'loading' && previewUrl) {
-      const timeoutId = setTimeout(() => {
-        setImgStatus('error');
-      }, 5000);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [imgStatus, previewUrl]);
+  const previewUrl = liveUrl 
+    ? `https://s0.wp.com/mshots/v1/${encodeURIComponent(liveUrl)}?w=800&h=600` 
+    : fallbackImageUrl;
 
   return (
     <div className={`relative w-full h-full bg-gradient-to-br ${gradient} overflow-hidden group`}>
-      {/* Diagonal stripe pattern overlay */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.08)_25%,rgba(255,255,255,.08)_50%,transparent_50%,transparent_75%,rgba(255,255,255,.08)_75%,rgba(255,255,255,.08))] bg-[length:40px_40px]" />
-      </div>
-
-      {/* Loading spinner - shown while image loads */}
-      {imgStatus === 'loading' && previewUrl && (
-        <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/10">
-          <div className="flex flex-col items-center gap-2">
-            <Loader2 className="animate-spin text-white/50" size={24} />
-            <span className="text-[8px] font-black uppercase tracking-widest text-white/40">Generating preview...</span>
-          </div>
+      {previewUrl ? (
+        <div className="relative w-full h-full">
+          {imgStatus === 'loading' && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/10 z-20">
+              <Loader2 className="animate-spin text-white/50" size={24} />
+            </div>
+          )}
+          <img 
+            src={previewUrl} 
+            alt={title}
+            onLoad={() => setImgStatus('loaded')}
+            onError={() => setImgStatus('error')}
+            className={`w-full h-full object-cover transition-all duration-700 ${imgStatus === 'loaded' ? 'grayscale group-hover:grayscale-0 opacity-85 group-hover:opacity-100' : 'opacity-0'}`}
+          />
+          {imgStatus === 'error' && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-white/50 gap-2">
+              <div className="text-lg font-bold text-white/80 text-center px-4">{title}</div>
+              <p className="text-[10px] font-light uppercase tracking-widest text-white/50">Live Project</p>
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
-      )}
-
-      {/* Project image - loads from live URL via mshots or falls back to GitHub */}
-      {previewUrl && (
-        <img
-          src={previewUrl}
-          alt={title}
-          onLoad={() => setImgStatus('loaded')}
-          onError={() => setImgStatus('error')}
-          className={`w-full h-full object-cover transition-all duration-700 ${
-            shouldShowImage
-              ? 'grayscale group-hover:grayscale-0 opacity-85 group-hover:opacity-100'
-              : 'opacity-0'
-          }`}
-        />
-      )}
-
-      {/* Fallback: Centered project title when no image or image failed */}
-      {!shouldShowImage && (
+      ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-          <h4 className="text-white/80 text-lg md:text-xl font-bold tracking-tight group-hover:text-white transition-colors">
-            {title}
-          </h4>
-          <p className="text-white/50 text-[11px] mt-2 font-light uppercase tracking-widest group-hover:text-white/70 transition-colors">
-            Live Project
-          </p>
+          <h4 className="text-white/80 text-lg md:text-xl font-bold tracking-tight group-hover:text-white transition-colors">{title}</h4>
+          <p className="text-white/50 text-[11px] mt-2 font-light uppercase tracking-widest group-hover:text-white/70 transition-colors">Live Project</p>
         </div>
       )}
-
-      {/* Dark overlay on hover for readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </div>
   );
 };
