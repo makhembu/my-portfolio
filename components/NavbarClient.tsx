@@ -29,8 +29,8 @@ export const Navbar: React.FC = () => {
 
   const links = [
     { id: 'home', label: t('navHome'), href: '#home' },
-    { id: 'work', label: t('navWork'), href: '#projects' },
     { id: 'about', label: t('navAbout'), href: '#about' },
+    { id: 'work', label: t('navWork'), href: '#projects' },
     { id: 'experience', label: t('navExp'), href: '#experience' },
   ];
 

@@ -85,7 +85,9 @@ export const portfolioData: EnhancedPortfolioData = {
       "atsReadyDesc": "A resume that actually works. Recruiters can read it. ATS systems can parse it. Download as PDF or copy the text.",
       "optimizerTab": "Match Against a Job",
       "optimizerLabel": "See How You Fit",
-      "optimizerDesc": "Paste a job description. I'll reorder your experience by relevance, highlight what matches, and show you your fit score. It's not magic. It's useful."
+      "optimizerDesc": "Paste a job description. I'll reorder your experience by relevance, highlight what matches, and show you your fit score. It's not magic. It's useful.",
+      "removeDoubt": "Remove All Doubt.",
+      "removeDoubtDesc": "Available for engineering roles where technical judgment and cultural nuance matter."
     },
     "sw": {
       "navHome": "Mwanzo",
