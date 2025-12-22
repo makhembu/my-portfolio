@@ -44,17 +44,26 @@ interface ProjectImageProps {
  * - Loads project screenshot from live URL via mshots service
  * - Falls back to GitHub image if mshots not available
  * - Falls back to gradient if image not available
- * - Shows loading spinner while image loads
+ * - Shows loading spinner while image loads with timeout handling
  * - Gracefully falls back to gradient if image fails
  */
 const ProjectImage: React.FC<ProjectImageProps> = ({ projectId, liveUrl, fallbackImageUrl, title }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
+  const [imgStatus, setImgStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
   const gradient = getProjectGradient(projectId);
   
   // Generate mshots URL from live URL, fall back to GitHub image
-  const imageUrl = liveUrl ? getMshotsUrl(liveUrl) : fallbackImageUrl;
-  const shouldShowImage = imageLoaded && !imageError && imageUrl;
+  const previewUrl = liveUrl ? getMshotsUrl(liveUrl) : fallbackImageUrl;
+  const shouldShowImage = imgStatus === 'loaded' && previewUrl;
+
+  // Timeout mechanism for image loading (5 seconds)
+  React.useEffect(() => {
+    if (imgStatus === 'loading' && previewUrl) {
+      const timeoutId = setTimeout(() => {
+        setImgStatus('error');
+      }, 5000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [imgStatus, previewUrl]);
 
   return (
     <div className={`relative w-full h-full bg-gradient-to-br ${gradient} overflow-hidden group`}>
@@ -64,7 +73,7 @@ const ProjectImage: React.FC<ProjectImageProps> = ({ projectId, liveUrl, fallbac
       </div>
 
       {/* Loading spinner - shown while image loads */}
-      {!imageLoaded && imageUrl && (
+      {imgStatus === 'loading' && previewUrl && (
         <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/10">
           <div className="flex flex-col items-center gap-2">
             <Loader2 className="animate-spin text-white/50" size={24} />
@@ -74,16 +83,12 @@ const ProjectImage: React.FC<ProjectImageProps> = ({ projectId, liveUrl, fallbac
       )}
 
       {/* Project image - loads from live URL via mshots or falls back to GitHub */}
-      {imageUrl && (
+      {previewUrl && (
         <img
-          src={imageUrl}
+          src={previewUrl}
           alt={title}
-          loading="lazy"
-          onLoad={() => setImageLoaded(true)}
-          onError={() => {
-            setImageError(true);
-            setImageLoaded(true);
-          }}
+          onLoad={() => setImgStatus('loaded')}
+          onError={() => setImgStatus('error')}
           className={`w-full h-full object-cover transition-all duration-700 ${
             shouldShowImage
               ? 'grayscale group-hover:grayscale-0 opacity-85 group-hover:opacity-100'
