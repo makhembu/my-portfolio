@@ -196,23 +196,11 @@ export const portfolioData: EnhancedPortfolioData = {
       "description": [
         "Engineered 25+ custom web applications and e-commerce platforms for startups and mid-market companies. Result: 99.5% uptime across all systems, 45% faster page loads than industry average, reducing client infrastructure costs by 30%.",
         "Delivered end-to-end projects from architecture through production deployment with CI/CD pipelines. Implemented automated testing (Jest, Cypress) with 80%+ code coverage, reducing production bugs by 60%.",
-        "Specialized in complex data flows and system design. I've built scalable databases, REST APIs, and frontend interfaces that work reliably at scale. Managed 15+ concurrent projects with clean Git workflows and documentation for long-term maintainability."
+        "Specialized in complex data flows and system design. Built scalable databases, REST APIs, and frontend interfaces that work reliably at scale. Managed 15+ concurrent projects with clean Git workflows and documentation for long-term maintainability.",
+        "Developed 15+ Python projects for freelance clients including web scrapers, CLI automation tools, data processing scripts, and Django REST APIs powering Next.js frontends. Accuracy rate: 98%+. Built tools processing 100k+ records monthly for market research and data aggregation.",
+        "Created CLI tools, Tkinter UIs, and Python automation scripts reducing manual work by 60% for enterprise clients. Engineered Django/Flask microservices with PostgreSQL databases handling complex queries and real-time data pipelines."
       ],
-      "skills": ["React", "TypeScript", "Node.js", "Git", "CI/CD", "JavaScript", "Full-Stack Development"]
-    },
-    {
-      "id": "exp-1c",
-      "company": "Self-Employed",
-      "role": "Python Developer (Freelance)",
-      "period": "Jan 2021 - Present",
-      "track": "it",
-      "description": [
-        "Delivered 15+ Python projects for freelance clients including web scrapers, CLI automation tools, data processing scripts, and Django REST APIs. Accuracy rate: 98%+. Clients: 10+ international companies.",
-        "Built web scrapers and automation tools processing 100k+ records monthly for market research, competitor analysis, and data aggregation tasks. Implemented error handling, logging, and scheduled execution.",
-        "Engineered Django REST APIs and Flask microservices powering Next.js frontends and standalone applications, with PostgreSQL databases handling complex queries and real-time data pipelines.",
-        "Created CLI tools and Python scripts automating IT operations, reducing manual work by 60% for enterprise clients. Built Tkinter-based UIs for non-technical users to interact with backend automation logic."
-      ],
-      "skills": ["Python", "Django", "Flask", "Web Scraping", "Data Processing", "REST APIs", "CLI Tools", "Automation"]
+      "skills": ["React", "TypeScript", "Node.js", "Python", "Django", "Flask", "Git", "CI/CD", "JavaScript", "Full-Stack Development", "Web Scraping", "Automation"]
     },
     {
       "id": "exp-2",
