@@ -95,19 +95,19 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({
       </header>
 
       {/* Main Content */}
-      <div style={{ padding: '0.35in 0.75in', flex: '1', display: 'flex', flexDirection: 'column', minHeight: 0, gap: '0.12in' }}>
+      <div style={{ padding: '0.35in 0.75in', flex: '1', display: 'flex', flexDirection: 'column', minHeight: 'auto', gap: '0.12in', overflow: 'visible' }}>
         {/* Summary */}
-        <section style={{ marginBottom: '0', minHeight: 0 }}>
+        <section style={{ marginBottom: '0.1in', minHeight: 'auto', overflow: 'visible' }}>
           <h2 style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', margin: '0 0 3px 0', color: '#000', letterSpacing: '0.5px' }}>
             Professional Summary
           </h2>
-          <p style={{ fontSize: '8px', margin: '0', lineHeight: '1.35', color: '#333' }}>
+          <p style={{ fontSize: '8px', margin: '0', lineHeight: '1.35', color: '#333', whiteSpace: 'normal', wordWrap: 'break-word', overflow: 'visible' }}>
             {customProfile?.bio || (profile as any).summary}
           </p>
         </section>
 
         {/* Experience */}
-        <section style={{ marginBottom: '3px', minHeight: 0 }}>
+        <section style={{ marginBottom: '3px', minHeight: 'auto', overflow: 'visible' }}>
           <h2 style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', margin: '0 0 4px 0', color: '#000', letterSpacing: '0.5px' }}>
             Professional Experience
           </h2>
@@ -138,7 +138,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({
         </section>
 
         {/* Skills */}
-        <section style={{ marginBottom: '0', minHeight: 0 }}>
+        <section style={{ marginBottom: '0', minHeight: 'auto', overflow: 'visible' }}>
           <h2 style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', margin: '0 0 3px 0', color: '#000', letterSpacing: '0.5px' }}>
             Skills
           </h2>
@@ -171,7 +171,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({
         </section>
 
         {/* Education & Languages */}
-        <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '0', minHeight: 0 }}>
+        <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '0', minHeight: 'auto', overflow: 'visible' }}>
           <div>
             <h2 style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', margin: '0 0 2px 0', color: '#000', letterSpacing: '0.5px' }}>
               Education
