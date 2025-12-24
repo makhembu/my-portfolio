@@ -135,7 +135,7 @@ export const portfolioData: EnhancedPortfolioData = {
       "highPerformance": "Kuboresha Kwa Haraka",
       "highPerformanceDesc": "Kuzingatia kwa undani Next.js, mikakati ya kusimamia hali, na uboreshaji wa web vitals kwa watumiaji wa kimataifa.",
       "professionalTrack": "Rekodi ya Kazi",
-      "professionalTrackTitle": "Uzoefu & Alama.",
+      "professionalTrackTitle": "Uzoefu na Alama.",
       "professionalTrackDesc": "Miaka 7+ inayobeba programu ya uzalishaji. Kutoka miundombinu kwa kiwango kikubwa hadi mifumo ya SaaS. Daima iliyozingatia matokeo.",
       "strengths": "Nguvu",
       "fullstackArch": "Miundombinu ya TypeScript/Next.js ya kamili.",
