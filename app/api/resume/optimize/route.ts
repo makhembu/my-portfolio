@@ -178,12 +178,14 @@ Return JSON with TRUTHFUL optimization:
       "relevanceScore": "score based on actual match, 0-100"
     }
   ],
-  "matchedSkills": ["skill1", "skill2"], // Only documented skills
-  "skillGaps": ["required skill not in resume"], // Honest about gaps
+  "skills": {
+    "frontend": ["skill1", "skill2"],
+    "backend": ["skill1", "skill2"],
+    "infrastructure": ["skill1", "skill2"]
+  },
   "relevantProjects": ["project title"],
   "keywordMatches": ["keyword1", "keyword2"],
-  "matchScore": "0-100 realistic score",
-  "note": "Honesty about fit - if score is low, explain why accurately"
+  "matchScore": "0-100 realistic score"
 }
 
 Remember: This is optimization through EMPHASIS, not INVENTION.
@@ -209,7 +211,29 @@ Candidate's integrity matters more than inflating match score.`;
     // Clean markdown formatting from all text fields
     optimizedResume = cleanMarkdownFromResume(optimizedResume);
 
-    return Response.json(optimizedResume, {
+    // Ensure response has the correct format expected by the modal
+    const normalizedResume = {
+      summary: optimizedResume.summary || '',
+      experience: (optimizedResume.experience || []).map((exp: any) => ({
+        id: exp.id || '',
+        role: exp.role || '',
+        company: exp.company || '',
+        period: exp.period || '',
+        description: Array.isArray(exp.description) ? exp.description : [exp.description || ''],
+        skills: Array.isArray(exp.skills) ? exp.skills : [exp.skills || ''],
+        relevanceScore: exp.relevanceScore || 0,
+      })),
+      skills: optimizedResume.skills || {
+        frontend: [],
+        backend: [],
+        infrastructure: [],
+      },
+      relevantProjects: optimizedResume.relevantProjects || [],
+      keywordMatches: optimizedResume.keywordMatches || [],
+      matchScore: optimizedResume.matchScore || 0,
+    };
+
+    return Response.json(normalizedResume, {
       headers: rateLimitHeaders,
     });
   } catch (error) {
