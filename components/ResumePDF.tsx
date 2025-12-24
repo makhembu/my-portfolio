@@ -128,7 +128,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({
                   {exp.company}
                 </p>
                 <ul style={{ margin: '0 0 0 12px', paddingLeft: '0', fontSize: '8px' }}>
-                  {exp.description.slice(0, 2).map((point, i) => (
+                  {exp.description.map((point, i) => (
                     <li key={i} style={{ margin: '0.5px 0', color: '#333', lineHeight: '1.3' }}>
                       {point}
                     </li>
