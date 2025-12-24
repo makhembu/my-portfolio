@@ -63,7 +63,7 @@ export const About: React.FC = () => {
             <h3 className="font-display text-6xl font-bold text-slate-900 dark:text-white tracking-tight">{t('aboutTitle')}.</h3>
           </div>
           <div className="text-xl font-light leading-relaxed text-slate-600 dark:text-slate-400">
-            <SummaryRenderer text={profileVariant.summary} />
+            <SummaryRenderer text={lang === 'sw' ? t('dualExpertise') : "I've worked in infrastructure, support, development, and translation. That range gives me perspective. I see technical problems through the lens of the humans who need to use the solution. And I see language barriers as UX problems to solve, not just text to convert."} />
           </div>
           <p className="text-lg text-slate-500 italic">
             {lang === 'sw' ? t('dualExpertise') : "I work across engineering and language. That helps me see problems both logically and from a human perspective. And I do this work globally."}
