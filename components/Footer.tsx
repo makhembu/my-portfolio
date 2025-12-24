@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import { portfolioData } from '@/portfolioData';
 import { Github, Linkedin, Mail, Lock } from 'lucide-react';
 import { PINModal } from './PINModal';
-import { useResumeUnlock } from '@/lib/resumeContext';
-import { useLanguage } from '@/lib/context';
+import { useResumeUnlock } from '@/hooks/useResumeUnlock';
+import { useLanguage } from '@/hooks/useAppContext';
 
 const RECRUITER_PIN = '123456';
 

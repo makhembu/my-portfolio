@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import { AppContextProvider } from '@/lib/context';
-import { TrackProvider } from '@/lib/useTrackContext';
-import { ResumeProvider } from '@/lib/resumeContext';
+import { AppContextProvider, TrackProvider, ResumeProvider } from '@/lib/contexts';
 import { generateNextMetadata, getPersonSchema } from '@/lib/seoUtils';
 import { baseSEO, personSchema } from '@/seoDataRefactored';
+import { siteConfig } from '@/lib/config';
 import '@/styles/globals.css';
 
 // Generate comprehensive SEO metadata
@@ -37,17 +36,17 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   alternates: {
-    canonical: 'https://brianuche.dev',
+    canonical: siteConfig.baseUrl,
   },
   verification: {
     // Add your verification codes here
     // google: 'google-site-verification-code',
   },
-  metadataBase: new URL('https://brianuche.dev'),
+  metadataBase: new URL(siteConfig.baseUrl),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://brianuche.dev',
+    url: siteConfig.baseUrl,
     siteName: 'Brian Makhembu Portfolio',
     title: baseSEO.ogTitle || baseSEO.title,
     description: baseSEO.ogDescription || baseSEO.description,
@@ -154,8 +153,8 @@ export default function RootLayout({
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         
         {/* Alternate language links for international SEO */}
-        <link rel="alternate" hrefLang="en-US" href="https://brianuche.dev" />
-        <link rel="alternate" hrefLang="sw-KE" href="https://brianuche.dev/sw" />
+        <link rel="alternate" hrefLang="en-US" href={siteConfig.baseUrl} />
+        <link rel="alternate" hrefLang="sw-KE" href={`${siteConfig.baseUrl}/sw`} />
         
         <style dangerouslySetInnerHTML={{
           __html: `

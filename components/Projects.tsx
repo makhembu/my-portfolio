@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { portfolioData } from '@/portfolioData';
 import { ExternalLink, Github, Loader2 } from 'lucide-react';
-import { useLanguage } from '@/lib/context';
+import { useLanguage } from '@/hooks/useAppContext';
 import { GitHubActivity } from './GitHubActivity';
 
 // Gradient palette for project fallback backgrounds

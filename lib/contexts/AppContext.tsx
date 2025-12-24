@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, createContext, useContext, ReactNode } from 'react';
+import React, { useState, useEffect, useCallback, createContext, ReactNode } from 'react';
 import { portfolioData } from '@/portfolioData';
 import { safeLocalStorage, safeDocument } from '@/lib/browserUtils';
 
@@ -17,16 +17,6 @@ export interface LanguageContextType {
 }
 
 /**
- * LanguageContext - React Context for managing app language
- * Provides bilingual support (English/Swahili)
- */
-export const LanguageContext = createContext<LanguageContextType>({
-  lang: 'en',
-  setLang: () => {},
-  t: (k) => k
-});
-
-/**
  * ThemeContextType - Global theme context
  */
 export interface ThemeContextType {
@@ -34,15 +24,6 @@ export interface ThemeContextType {
   setDarkMode: (value: boolean) => void;
   toggleTheme: (e?: React.MouseEvent) => void;
 }
-
-/**
- * ThemeContext - React Context for managing theme
- */
-export const ThemeContext = createContext<ThemeContextType>({
-  darkMode: false,
-  setDarkMode: () => {},
-  toggleTheme: () => {},
-});
 
 /**
  * ResumeModalContextType - Global resume modal state
@@ -53,14 +34,6 @@ export interface ResumeModalContextType {
 }
 
 /**
- * ResumeModalContext - React Context for managing resume modal visibility
- */
-export const ResumeModalContext = createContext<ResumeModalContextType>({
-  isResumeOpen: false,
-  setIsResumeOpen: () => {},
-});
-
-/**
  * AIHubModalContextType - Global AI Hub modal state
  */
 export interface AIHubModalContextType {
@@ -69,12 +42,25 @@ export interface AIHubModalContextType {
 }
 
 /**
+ * LanguageContext - React Context for managing app language
+ * Provides bilingual support (English/Swahili)
+ */
+export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+/**
+ * ThemeContext - React Context for managing theme
+ */
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+/**
+ * ResumeModalContext - React Context for managing resume modal visibility
+ */
+export const ResumeModalContext = createContext<ResumeModalContextType | undefined>(undefined);
+
+/**
  * AIHubModalContext - React Context for managing AI Hub modal visibility
  */
-export const AIHubModalContext = createContext<AIHubModalContextType>({
-  isAIHubOpen: false,
-  setIsAIHubOpen: () => {},
-});
+export const AIHubModalContext = createContext<AIHubModalContextType | undefined>(undefined);
 
 interface AppContextProviderProps {
   children: ReactNode;
@@ -83,6 +69,12 @@ interface AppContextProviderProps {
 /**
  * AppContextProvider - Provides language, theme, and resume modal context to the entire app
  * Handles localStorage persistence and SSR safety
+ *
+ * ARCHITECTURE:
+ * - Split into 4 logical concerns: language, theme, resume modal, AI hub modal
+ * - Each context has its own hook for consumption (see useAppContext.ts)
+ * - Hydration state ensures SSR safety
+ * - localStorage persistence handles client preferences
  */
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);
@@ -95,18 +87,18 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   useEffect(() => {
     const savedTheme = safeLocalStorage.getItem('theme');
     const savedLang = safeLocalStorage.getItem('lang') as Language | null;
-    
+
     // Default to light mode, respect saved preference
     if (savedTheme) {
       setDarkMode(savedTheme === 'dark');
     } else {
       setDarkMode(false); // Light mode is default
     }
-    
+
     if (savedLang && (savedLang === 'en' || savedLang === 'sw')) {
       setLang(savedLang);
     }
-    
+
     setIsHydrated(true);
   }, []);
 
@@ -134,11 +126,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 
   /**
    * Toggle between dark and light theme
-   * Simple state toggle without animations
    */
   const toggleTheme = useCallback((e?: React.MouseEvent) => {
-    setDarkMode(!darkMode);
-  }, [darkMode]);
+    setDarkMode((prev) => !prev);
+  }, []);
 
   /**
    * Translation helper - returns translated string or fallback
@@ -146,62 +137,27 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
    * @returns Translated string or key if not found
    */
   const t = (key: string): string => {
-    return portfolioData.uiTranslations[lang][key] || portfolioData.uiTranslations['en'][key] || key;
+    return (
+      portfolioData.uiTranslations[lang][key] ||
+      portfolioData.uiTranslations['en'][key] ||
+      key
+    );
   };
 
+  const languageValue: LanguageContextType = { lang, setLang, t };
+  const themeValue: ThemeContextType = { darkMode, setDarkMode, toggleTheme };
+  const resumeModalValue: ResumeModalContextType = { isResumeOpen, setIsResumeOpen };
+  const aiHubModalValue: AIHubModalContextType = { isAIHubOpen, setIsAIHubOpen };
+
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t }}>
-      <ThemeContext.Provider value={{ darkMode, setDarkMode, toggleTheme }}>
-        <ResumeModalContext.Provider value={{ isResumeOpen, setIsResumeOpen }}>
-          <AIHubModalContext.Provider value={{ isAIHubOpen, setIsAIHubOpen }}>
+    <LanguageContext.Provider value={languageValue}>
+      <ThemeContext.Provider value={themeValue}>
+        <ResumeModalContext.Provider value={resumeModalValue}>
+          <AIHubModalContext.Provider value={aiHubModalValue}>
             {children}
           </AIHubModalContext.Provider>
         </ResumeModalContext.Provider>
       </ThemeContext.Provider>
     </LanguageContext.Provider>
   );
-};
-
-/**
- * Hook to use language context
- */
-export const useLanguage = () => {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within AppContextProvider');
-  }
-  return context;
-};
-
-/**
- * Hook to use theme context
- */
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within AppContextProvider');
-  }
-  return context;
-};
-
-/**
- * Hook to use resume modal context
- */
-export const useResumeModal = () => {
-  const context = useContext(ResumeModalContext);
-  if (!context) {
-    throw new Error('useResumeModal must be used within AppContextProvider');
-  }
-  return context;
-};
-
-/**
- * Hook to use AI Hub modal context
- */
-export const useAIHubModal = () => {
-  const context = useContext(AIHubModalContext);
-  if (!context) {
-    throw new Error('useAIHubModal must be used within AppContextProvider');
-  }
-  return context;
 };

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Loader2, Send, Copy, Download, CheckCircle2, AlertCircle, FileText } from 'lucide-react';
 import { optimizeResumeForJob, calculateMatchScore, extractJobKeywords } from '@/services/resumeOptimizationService';
 import { portfolioData } from '@/portfolioData';
-import { useTrack } from '@/lib/useTrackContext';
+import { useTrack } from '@/hooks/useTrack';
 import { ResumeOptimizerModal } from './ResumeOptimizerModal';
 import { CareerTrack } from '@/types';
 

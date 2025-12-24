@@ -4,7 +4,7 @@
 import React from 'react';
 import { ArrowRight, Code2, Globe, Command, Terminal } from 'lucide-react';
 import { portfolioData } from '@/portfolioData';
-import { useLanguage, useResumeModal } from '@/lib/context';
+import { useLanguage, useResumeModal } from '@/hooks/useAppContext';
 
 export const Hero: React.FC = () => {
   const { lang, t } = useLanguage();

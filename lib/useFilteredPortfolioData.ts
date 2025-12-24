@@ -1,6 +1,6 @@
 import { portfolioData, Experience } from '@/portfolioData';
 import { Project, CareerTrack } from '@/types';
-import { useTrack } from './useTrackContext';
+import { useTrack } from '@/hooks/useTrack';
 
 /**
  * Hook to get filtered portfolio data based on active career track
@@ -34,14 +34,18 @@ export const useFilteredPortfolioData = () => {
 
   const getProfileVariant = () => {
     if (activeTrack === 'both') {
-      // Return a merged version
+      // Return a merged version for 'both' track
       return {
         role: portfolioData.profile.variants.it.role,
         tagline: portfolioData.profile.variants.it.tagline,
         summary: portfolioData.profile.variants.it.summary,
       };
     }
-    return portfolioData.profile.variants[activeTrack];
+    // Type-safe access for 'it' and 'translation' tracks
+    if (activeTrack === 'translation') {
+      return portfolioData.profile.variants.translation;
+    }
+    return portfolioData.profile.variants.it;
   };
 
   const getFilteredSkills = () => {

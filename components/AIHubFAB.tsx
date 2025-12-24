@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Languages, Cpu, User, X } from 'lucide-react';
-import { useLanguage, useAIHubModal } from '@/lib/context';
+import { useLanguage, useAIHubModal } from '@/hooks/useAppContext';
 import { translateText, chatWithBrianAI } from '@/services/geminiService';
 
 const MessageContent: React.FC<{ text: string }> = ({ text }) => {

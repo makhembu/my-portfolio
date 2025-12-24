@@ -4,8 +4,8 @@ import React from 'react';
 import { FileText, Zap } from 'lucide-react';
 import { ATSFriendlyResume } from './ATSFriendlyResume';
 import { ResumeOptimizer } from './ResumeOptimizer';
-import { useResumeUnlock } from '@/lib/resumeContext';
-import { useLanguage } from '@/lib/context';
+import { useResumeUnlock } from '@/hooks/useResumeUnlock';
+import { useLanguage } from '@/hooks/useAppContext';
 import { useState } from 'react';
 
 export const ResumeSection: React.FC = () => {

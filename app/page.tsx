@@ -13,7 +13,8 @@ import { AIHubFAB } from '@/components/AIHubFAB';
 
 /**
  * Home Page - Main portfolio page with all sections
- * Displays the hero section, about, projects, experience
+ * CLIENT COMPONENT - Required due to client-dependent components (context, ErrorBoundary class component)
+ * Displays the hero section, about, projects, experience with error boundaries and context access
  */
 export default function HomePage() {
   return (

@@ -4,7 +4,7 @@
 import React from 'react';
 import { portfolioData } from '@/portfolioData';
 import { Calendar, Briefcase, CheckCircle2, Award } from 'lucide-react';
-import { useLanguage, useResumeModal } from '@/lib/context';
+import { useLanguage, useResumeModal } from '@/hooks/useAppContext';
 
 export const Experience: React.FC = () => {
   const { lang, t } = useLanguage();

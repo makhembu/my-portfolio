@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { portfolioData } from '@/portfolioData';
+import { siteConfig } from '@/lib/config';
 
 interface ResumePDFProps {
   profile?: {
@@ -91,7 +92,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({
           <span>•</span>
           <span>{profile.location || 'Remote'}</span>
           <span>•</span>
-          <span>brianuche.dev</span>
+          <span>{siteConfig.baseUrl.replace('https://', '')}</span>
         </div>
       </header>
 

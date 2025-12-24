@@ -4,7 +4,7 @@
 import React from 'react';
 import { portfolioData } from '@/portfolioData';
 import { GraduationCap, MapPin, Zap, Database, Globe } from 'lucide-react';
-import { useLanguage } from '@/lib/context';
+import { useLanguage } from '@/hooks/useAppContext';
 
 /**
  * SummaryRenderer - Parses and renders markdown-style links in text

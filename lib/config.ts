@@ -6,7 +6,7 @@
 
 export const siteConfig = {
   // Base site URL (from environment or fallback)
-  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://brianuche.dev',
+  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://brianmakhembu-portfolio.vercel.app',
   
   // Social links (from environment or fallback)
   social: {
@@ -63,7 +63,7 @@ export const validateConfig = (): { valid: boolean; errors: string[] } => {
   const errors: string[] = [];
 
   if (!process.env.NEXT_PUBLIC_SITE_URL) {
-    console.warn('⚠️  NEXT_PUBLIC_SITE_URL not set, using default: https://brianuche.dev');
+    console.warn('⚠️  NEXT_PUBLIC_SITE_URL not set, using default: https://brianmakhembu-portfolio.vercel.app');
   }
 
   return {
