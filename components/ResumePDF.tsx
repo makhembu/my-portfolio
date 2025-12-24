@@ -49,6 +49,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({
     role: defaultProfile.variants.it.role,
     location: defaultProfile.location,
     email: defaultProfile.variants.it.tagline,
+    bio: defaultProfile.variants.it.summary,
   };
   
   const profile = profileData as any;
@@ -102,7 +103,7 @@ export const ResumePDF: React.FC<ResumePDFProps> = ({
             Professional Summary
           </h2>
           <p style={{ fontSize: '8px', margin: '0', lineHeight: '1.35', color: '#333', whiteSpace: 'normal', wordWrap: 'break-word', overflow: 'visible' }}>
-            {customProfile?.bio || (profile as any).summary}
+            {profile.bio}
           </p>
         </section>
 

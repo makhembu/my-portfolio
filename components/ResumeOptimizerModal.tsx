@@ -41,15 +41,6 @@ export const ResumeOptimizerModal: React.FC<ResumeOptimizerModalProps> = ({
 }) => {
   const [isGenerating, setIsGenerating] = useState(false);
 
-  // Debug log
-  React.useEffect(() => {
-    if (optimized) {
-      console.log('ResumeOptimizerModal - optimized data:', optimized);
-      console.log('Summary field:', optimized.summary);
-      console.log('Summary is empty:', !optimized.summary);
-    }
-  }, [optimized]);
-
   const downloadPDF = async () => {
     setIsGenerating(true);
     try {
@@ -230,13 +221,6 @@ export const ResumeOptimizerModal: React.FC<ResumeOptimizerModalProps> = ({
 
         {/* Resume Preview */}
         <div className="p-6 max-h-[60vh] overflow-y-auto">
-          {!optimized?.summary && (
-            <div className="mb-4 p-4 bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-500/20 rounded-lg">
-              <p className="text-sm text-yellow-800 dark:text-yellow-300">
-                <span className="font-bold">Debug:</span> Summary is empty. Data: {JSON.stringify(optimized).slice(0, 200)}...
-              </p>
-            </div>
-          )}
           <div
             className="bg-white rounded-lg shadow-sm"
             style={{
