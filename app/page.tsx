@@ -5,6 +5,7 @@ import { Navbar } from '@/components/NavbarClient';
 import { Hero } from '@/components/Hero';
 import { About } from '@/components/About';
 import { Projects } from '@/components/Projects';
+import { GitHubActivity } from '@/components/GitHubActivity';
 import { Experience } from '@/components/Experience';
 import { ResumeSection } from '@/components/ResumeSection';
 import { Footer } from '@/components/Footer';
@@ -31,6 +32,11 @@ export default function HomePage() {
           </section>
           <section id="projects">
             <Projects />
+          </section>
+          <section id="github">
+            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-24">
+              <GitHubActivity />
+            </div>
           </section>
           <section id="resume">
             <ResumeSection />

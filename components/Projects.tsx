@@ -1,11 +1,27 @@
-
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { portfolioData } from '@/portfolioData';
 import { ExternalLink, Github, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/hooks/useAppContext';
-import { GitHubActivity } from './GitHubActivity';
+
+interface GitHubRepo {
+  id: number;
+  name: string;
+  html_url: string;
+  homepage: string;
+  description: string;
+}
+
+interface ProjectData {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  githubUrl?: string;
+  vercelUrl?: string;
+  tags: string[];
+}
 
 // Gradient palette for project fallback backgrounds
 const GRADIENT_COLORS = [
@@ -26,19 +42,18 @@ function getProjectGradient(projectId: string): string {
 
 interface ProjectImageProps {
   projectId: string;
-  liveUrl?: string;
-  fallbackImageUrl?: string;
+  vercelUrl?: string;
   title: string;
 }
 
-const ProjectImage: React.FC<ProjectImageProps> = ({ projectId, liveUrl, fallbackImageUrl, title }) => {
+const ProjectImage: React.FC<ProjectImageProps> = ({ projectId, vercelUrl, title }) => {
   const [imgStatus, setImgStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
   const gradient = getProjectGradient(projectId);
   
-  // Generate mshots URL from live URL, fall back to GitHub image
-  const previewUrl = liveUrl 
-    ? `https://s0.wp.com/mshots/v1/${encodeURIComponent(liveUrl)}?w=800&h=600` 
-    : fallbackImageUrl;
+  // Use mshots to generate live preview from Vercel URL (same as GitHubActivity)
+  const previewUrl = vercelUrl 
+    ? `https://s0.wp.com/mshots/v1/${encodeURIComponent(vercelUrl)}?w=800&h=600`
+    : null;
 
   return (
     <div className={`relative w-full h-full bg-gradient-to-br ${gradient} overflow-hidden group`}>
@@ -75,7 +90,7 @@ const ProjectImage: React.FC<ProjectImageProps> = ({ projectId, liveUrl, fallbac
 };
 
 interface ProjectCardProps {
-  project: typeof portfolioData.projects[0];
+  project: ProjectData;
 }
 
 /**
@@ -89,16 +104,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       <div className="relative h-56 md:h-64 overflow-hidden shrink-0">
         <ProjectImage 
           projectId={project.id} 
-          liveUrl={project.link}
-          fallbackImageUrl={project.imageUrl}
+          vercelUrl={project.vercelUrl}
           title={project.title} 
         />
         
         {/* Ownership Badge - appears on hover */}
         <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black to-transparent p-6">
           <div className="space-y-1">
-            <p className="text-white text-[10px] font-black uppercase tracking-widest">Ownership</p>
-            <p className="text-indigo-300 text-xs font-light">Led full-stack architecture & production deployment</p>
+            <p className="text-white text-[10px] font-black uppercase tracking-widest">Live Project</p>
+            <p className="text-indigo-300 text-xs font-light">Click to explore</p>
           </div>
         </div>
       </div>
@@ -114,22 +128,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-light">
             {project.description}
           </p>
-
-          {/* Metrics Grid */}
-          {project.metrics && Object.keys(project.metrics).length > 0 && (
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100 dark:border-white/5">
-              {Object.entries(project.metrics).map(([key, value]) => (
-                <div key={key} className="space-y-1.5">
-                  <p className="text-[8px] font-black uppercase text-indigo-500 tracking-widest opacity-70">
-                    {key.replace(/([A-Z])/g, ' $1').trim()}
-                  </p>
-                  <p className="text-sm font-semibold dark:text-white text-slate-900">
-                    {value}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Tech Stack Tags */}
@@ -160,9 +158,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               <span>Code</span>
             </a>
           )}
-          {project.link && (
+          {project.vercelUrl && (
             <a 
-              href={project.link} 
+              href={project.vercelUrl} 
               target="_blank" 
               rel="noopener noreferrer"
               aria-label={`Visit ${project.title} live site`}
@@ -179,14 +177,42 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
 /**
  * Projects Section Component
- * Displays portfolio projects with category filtering
- * - All, Code, Infrastructure, Translation
- * - Responsive grid layout
- * - Real-time filtering
+ * Fetches featured projects from GitHub API (matching GitHubActivity approach)
+ * Displays live previews via mshots screenshot service
  */
 export const Projects: React.FC = () => {
+  const [projects, setProjects] = useState<ProjectData[]>([]);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [loading, setLoading] = useState(true);
   const { t } = useLanguage();
+
+  // Use portfolio data directly for featured projects
+  useEffect(() => {
+    setProjects(portfolioData.projects.map(p => ({
+      id: p.id,
+      title: p.title,
+      description: p.description,
+      category: p.category,
+      githubUrl: p.githubUrl,
+      vercelUrl: p.link,
+      tags: p.tags,
+    })));
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-24">
+        <div className="flex justify-center items-center gap-4 py-20">
+          <div className="relative">
+            <div className="w-12 h-12 border-4 border-indigo-600/20 border-t-indigo-600 rounded-full animate-spin"></div>
+            <Github className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" size={20} />
+          </div>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Loading Projects...</span>
+        </div>
+      </section>
+    );
+  }
 
   const categoryLabels = {
     all: 'All Projects',
@@ -196,8 +222,8 @@ export const Projects: React.FC = () => {
   };
 
   const filteredProjects = activeFilter === 'all'
-    ? portfolioData.projects
-    : portfolioData.projects.filter(p => p.category === activeFilter);
+    ? projects
+    : projects.filter(p => p.category === activeFilter);
 
   const filterCategories = Object.keys(categoryLabels) as (keyof typeof categoryLabels)[];
 
@@ -240,18 +266,6 @@ export const Projects: React.FC = () => {
         {filteredProjects.map(project => (
           <ProjectCard key={project.id} project={project} />
         ))}
-      </div>
-
-      {/* No Results Message */}
-      {filteredProjects.length === 0 && (
-        <div className="text-center py-16 text-slate-500 dark:text-slate-400">
-          <p className="text-lg font-light">No projects found in this category.</p>
-        </div>
-      )}
-
-      {/* GitHub Activity Section */}
-      <div className="pt-8 border-t border-slate-200 dark:border-white/5">
-        <GitHubActivity />
       </div>
     </section>
   );
