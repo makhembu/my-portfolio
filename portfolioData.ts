@@ -359,8 +359,7 @@ export const portfolioData: EnhancedPortfolioData = {
   "skills": {
     "it": {
       "frontend": ["React", "Next.js", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind"],
-      "backend": ["Node.js", "Express", "Python", "Django", "Flask", "PostgreSQL", "Supabase", "REST APIs", "Prisma"],
-      "python": ["Web Scraping", "Automation", "Data Processing", "CLI Tools", "Scripts", "Tkinter UI", "API Development"],
+      "backend": ["Node.js", "Express", "Python", "Django", "Flask", "Web Scraping", "Automation", "Data Processing", "PostgreSQL", "Supabase", "REST APIs", "Prisma"],
       "infrastructure": ["CI/CD", "Kubernetes", "Docker", "Git/GitHub", "NPM", "Postman", "System Administration"]
     },
     "translation": {
