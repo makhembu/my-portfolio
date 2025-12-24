@@ -36,7 +36,7 @@ export const portfolioData: EnhancedPortfolioData = {
       "it": {
         "role": "Full-Stack Engineer | Systems Thinking",
         "tagline": "Full-Stack Web Developer | React, TypeScript, Node.js, Python",
-        "summary": "I build systems that reduce complexity, not add to it. With 6+ years in infrastructure and support, I know what breaks in production and how to prevent it. I'm comfortable across React, Next.js, TypeScript, Node.js, and PostgreSQL. But here's what matters more: I think in terms of constraints. Bandwidth, compliance, user context. Not just features. I'm looking for remote work where full-stack ownership makes sense. That means owning everything from infrastructure through user experience."
+        "summary": "I build systems that reduce complexity, not add to it. With 6+ years in infrastructure and support, I know what breaks in production and how to prevent it. I'm comfortable across React, Next.js, TypeScript, Node.js, Python, and PostgreSQL. I've shipped production backends in both JavaScript and Python, built web scrapers, CLI automation tools, and data processing pipelines. But here's what matters more: I think in terms of constraints. Bandwidth, compliance, user context. Not just features. I'm looking for remote work where full-stack ownership makes sense. That means owning everything from infrastructure through user experience."
       },
       "translation": {
         "role": "Technical Linguist | Cultural Bridge",
@@ -201,6 +201,20 @@ export const portfolioData: EnhancedPortfolioData = {
       "skills": ["React", "TypeScript", "Node.js", "Git", "CI/CD", "JavaScript", "Full-Stack Development"]
     },
     {
+      "id": "exp-1c",
+      "company": "Self-Employed",
+      "role": "Python Developer (Freelance)",
+      "period": "Jan 2021 - Present",
+      "track": "it",
+      "description": [
+        "Delivered 15+ Python projects for freelance clients including web scrapers, CLI automation tools, data processing scripts, and Django REST APIs. Accuracy rate: 98%+. Clients: 10+ international companies.",
+        "Built web scrapers and automation tools processing 100k+ records monthly for market research, competitor analysis, and data aggregation tasks. Implemented error handling, logging, and scheduled execution.",
+        "Engineered Django REST APIs and Flask microservices powering Next.js frontends and standalone applications, with PostgreSQL databases handling complex queries and real-time data pipelines.",
+        "Created CLI tools and Python scripts automating IT operations, reducing manual work by 60% for enterprise clients. Built Tkinter-based UIs for non-technical users to interact with backend automation logic."
+      ],
+      "skills": ["Python", "Django", "Flask", "Web Scraping", "Data Processing", "REST APIs", "CLI Tools", "Automation"]
+    },
+    {
       "id": "exp-2",
       "company": "Aventus",
       "role": "IT Support Specialist",
@@ -297,6 +311,23 @@ export const portfolioData: EnhancedPortfolioData = {
       "category": "translation",
       "track": "both",
       "imageUrl": "https://raw.githubusercontent.com/makhembu/jambo-portal/main/public/og-image.png"
+    },
+    {
+      "id": "python-automation-suite",
+      "title": "Python Automation & Backend Suite",
+      "description": "Collection of freelance Python projects: web scrapers, CLI automation tools, Django API backends, and data processing scripts. Served 10+ clients with 98% accuracy.",
+      "longDescription": "I've built multiple Python solutions for freelance clients. Web scrapers for market research, CLI automation tools for IT teams, Django REST APIs powering Next.js frontends, data processing scripts handling 100k+ records. Each project demonstrates Python's versatility—from low-level automation to production backends. Comfortable with async operations, database design, and integrating Python servers with modern frontend frameworks.",
+      "metrics": {
+        "clientsServed": "10+",
+        "projectsDelivered": "15+",
+        "accuracy": "98%",
+        "timeInvested": "200+ hours"
+      },
+      "tags": ["Python", "Django", "Flask", "Web Scraping", "Automation", "Data Processing", "REST APIs"],
+      "githubUrl": "https://github.com/makhembu",
+      "category": "code",
+      "track": "it",
+      "imageUrl": ""
     }
   ],
   "services": [
@@ -309,6 +340,12 @@ export const portfolioData: EnhancedPortfolioData = {
     {
       "title": "Full-Stack Development",
       "description": "Building scalable, type-safe applications from core infrastructure to frontend polish.",
+      "icon": "Code2",
+      "track": "it"
+    },
+    {
+      "title": "Python Development",
+      "description": "Web scraping, automation, data processing, and backend APIs. Proficient with Django, Flask, and async operations.",
       "icon": "Code2",
       "track": "it"
     },
@@ -334,7 +371,8 @@ export const portfolioData: EnhancedPortfolioData = {
   "skills": {
     "it": {
       "frontend": ["React", "Next.js", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind"],
-      "backend": ["Node.js", "Express", "PostgreSQL", "Supabase", "REST APIs", "Prisma"],
+      "backend": ["Node.js", "Express", "Python", "Django", "Flask", "PostgreSQL", "Supabase", "REST APIs", "Prisma"],
+      "python": ["Web Scraping", "Automation", "Data Processing", "CLI Tools", "Scripts", "Tkinter UI", "API Development"],
       "infrastructure": ["CI/CD", "Kubernetes", "Docker", "Git/GitHub", "NPM", "Postman", "System Administration"]
     },
     "translation": {
