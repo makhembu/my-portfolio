@@ -212,8 +212,17 @@ Candidate's integrity matters more than inflating match score.`;
     optimizedResume = cleanMarkdownFromResume(optimizedResume);
 
     // Ensure response has the correct format expected by the modal
+    // If summary is missing or empty, generate a default one from role and top skills
+    let summary = optimizedResume.summary;
+    if (!summary || summary.trim() === '') {
+      const topSkills = (optimizedResume.experience && optimizedResume.experience[0]?.skills) 
+        ? optimizedResume.experience[0].skills.slice(0, 3).join(', ')
+        : candidateData.skills.frontend.slice(0, 2).join(', ');
+      summary = `Experienced ${candidateData.profile.role} with demonstrated expertise in ${topSkills}. Proven track record of delivering high-quality solutions with strong focus on code quality and system design.`;
+    }
+
     const normalizedResume = {
-      summary: optimizedResume.summary || '',
+      summary: summary,
       experience: (optimizedResume.experience || []).map((exp: any) => ({
         id: exp.id || '',
         role: exp.role || '',
