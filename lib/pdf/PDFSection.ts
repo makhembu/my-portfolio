@@ -188,7 +188,15 @@ export class ResumePDFSection {
    * Returns Y position with consistent section spacing
    */
   public renderSummary(text: string, currentY: number): number {
+    const pageHeight = this.height;
     const lineHeight = CONSTANTS.LINE_HEIGHT;
+    
+    // Check if we need a new page
+    if (currentY > pageHeight - this.margin - 30) {
+      this.doc.addPage();
+      currentY = this.margin;
+    }
+    
     this.doc.setFontSize(FONTS.body.size);
     this.doc.setTextColor(COLORS.secondary);
     const lines = this.doc.splitTextToSize(text, this.maxWidth);
