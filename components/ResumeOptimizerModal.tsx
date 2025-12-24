@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { X, Download, AlertCircle } from 'lucide-react';
+import { X, Download, AlertCircle, ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
 import { ResumePDF } from './ResumePDF';
 import { portfolioData } from '@/portfolioData';
 
@@ -40,6 +40,8 @@ export const ResumeOptimizerModal: React.FC<ResumeOptimizerModalProps> = ({
   jobTitle = 'Job Position'
 }) => {
   const [isGenerating, setIsGenerating] = useState(false);
+  const [zoom, setZoom] = useState(1.35);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const downloadPDF = async () => {
     setIsGenerating(true);
@@ -145,7 +147,7 @@ export const ResumeOptimizerModal: React.FC<ResumeOptimizerModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-5xl w-full my-8">
+      <div className={`${isFullscreen ? 'fixed inset-4 rounded-2xl flex flex-col' : 'rounded-3xl max-w-5xl my-8'} bg-white dark:bg-slate-900 shadow-2xl w-full`}>
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-white/10">
           <div>
@@ -220,19 +222,51 @@ export const ResumeOptimizerModal: React.FC<ResumeOptimizerModalProps> = ({
         </div>
 
         {/* Resume Preview */}
-        <div className="p-6 max-h-[60vh] overflow-y-auto">
-          <div
-            className="bg-white rounded-lg shadow-sm"
-            style={{
-              width: '210mm',
-              minHeight: '297mm',
-              margin: '0 auto',
-              padding: '0',
-              transform: 'scale(1.35)',
-              transformOrigin: 'top center',
-              marginBottom: '100px'
-            }}
-          >
+        <div className={`flex flex-col ${isFullscreen ? 'fixed inset-0 z-50 bg-white p-4' : 'p-6 max-h-[60vh]'}`}>
+          {/* Zoom Controls */}
+          <div className="flex items-center justify-between mb-4 pb-4 border-b border-slate-200 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
+                className="p-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded transition-colors"
+                title="Zoom out"
+              >
+                <ZoomOut size={18} className="text-slate-600 dark:text-slate-400" />
+              </button>
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 min-w-16 text-center">
+                {Math.round(zoom * 100)}%
+              </span>
+              <button
+                onClick={() => setZoom(Math.min(2, zoom + 0.1))}
+                className="p-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded transition-colors"
+                title="Zoom in"
+              >
+                <ZoomIn size={18} className="text-slate-600 dark:text-slate-400" />
+              </button>
+            </div>
+            <button
+              onClick={() => setIsFullscreen(!isFullscreen)}
+              className="p-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded transition-colors"
+              title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+            >
+              <Maximize2 size={18} className="text-slate-600 dark:text-slate-400" />
+            </button>
+          </div>
+
+          {/* Resume Container */}
+          <div className={`${isFullscreen ? 'overflow-y-auto flex-1' : 'overflow-y-auto'}`}>
+            <div
+              className="bg-white rounded-lg shadow-sm"
+              style={{
+                width: '210mm',
+                minHeight: '297mm',
+                margin: '0 auto',
+                padding: '0',
+                transform: `scale(${zoom})`,
+                transformOrigin: 'top center',
+                marginBottom: zoom > 1 ? '100px' : '0'
+              }}
+            >
             <ResumePDF 
               profile={{
                 firstName: 'Brian',
@@ -258,11 +292,12 @@ export const ResumeOptimizerModal: React.FC<ResumeOptimizerModalProps> = ({
                 { name: 'Swahili', level: 100 }
               ]}
             />
+            </div>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-4 p-6 border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5">
+        <div className={`flex gap-4 p-6 border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 ${isFullscreen ? 'fixed bottom-0 left-0 right-0 z-50' : ''}`}>
           <button
             onClick={onClose}
             className="flex-1 bg-white dark:bg-white/10 text-slate-700 dark:text-slate-300 py-3 px-6 rounded-xl font-bold uppercase text-sm tracking-widest hover:bg-slate-100 dark:hover:bg-white/20 transition-all border border-slate-200 dark:border-white/10"

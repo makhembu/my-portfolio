@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Sun, Moon, Menu, X, FileText, Download, Languages } from 'lucide-react';
+import { Sun, Moon, Menu, X, FileText, Download, Languages, ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
 import { US, GB, KE } from 'country-flag-icons/react/3x2';
 import { ResumePDF } from './ResumePDF';
 import { portfolioData } from '@/portfolioData';
@@ -16,6 +16,8 @@ import { safeDocument } from '@/lib/browserUtils';
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userCountry, setUserCountry] = useState<'US' | 'GB'>('GB');
+  const [resumeZoom, setResumeZoom] = useState(1);
+  const [isResumeFullscreen, setIsResumeFullscreen] = useState(false);
   const { lang, setLang, t } = useLanguage();
   const { darkMode, toggleTheme } = useTheme();
   const { isResumeOpen, setIsResumeOpen } = useResumeModal();
@@ -243,7 +245,7 @@ export const Navbar: React.FC = () => {
             className="absolute inset-0 bg-slate-900/90 backdrop-blur-sm print:hidden" 
             onClick={() => setIsResumeOpen(false)}
           ></div>
-          <div className="relative w-full max-w-5xl h-full flex flex-col bg-slate-100 dark:bg-[#16181d] rounded-[2.5rem] overflow-hidden shadow-3xl animate-in zoom-in duration-300 print:block print:shadow-none print:bg-white print:rounded-none">
+          <div className={`relative ${isResumeFullscreen ? 'fixed inset-4 rounded-2xl' : 'w-full max-w-5xl h-full rounded-[2.5rem]'} flex flex-col bg-slate-100 dark:bg-[#16181d] overflow-hidden shadow-3xl animate-in zoom-in duration-300 print:block print:shadow-none print:bg-white print:rounded-none`}>
             <div className="flex items-center justify-between px-8 py-5 border-b border-slate-200 dark:border-white/10 bg-white dark:bg-[#0d0e12] print:hidden">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white"><FileText size={20}/></div>
@@ -253,6 +255,32 @@ export const Navbar: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1 bg-slate-100 dark:bg-white/5 rounded-lg p-1">
+                  <button 
+                    onClick={() => setResumeZoom(Math.max(0.5, resumeZoom - 0.1))}
+                    className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded transition-colors"
+                    title="Zoom out"
+                  >
+                    <ZoomOut size={16} className="text-slate-600 dark:text-slate-400" />
+                  </button>
+                  <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 min-w-12 text-center">
+                    {Math.round(resumeZoom * 100)}%
+                  </span>
+                  <button 
+                    onClick={() => setResumeZoom(Math.min(2, resumeZoom + 0.1))}
+                    className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded transition-colors"
+                    title="Zoom in"
+                  >
+                    <ZoomIn size={16} className="text-slate-600 dark:text-slate-400" />
+                  </button>
+                </div>
+                <button 
+                  onClick={() => setIsResumeFullscreen(!isResumeFullscreen)}
+                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-all"
+                  title={isResumeFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+                >
+                  <Maximize2 size={16} className="text-slate-600 dark:text-slate-400" />
+                </button>
                 <button 
                   onClick={handleDownloadPDF}
                   className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-lg active:scale-95"
@@ -268,7 +296,10 @@ export const Navbar: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto bg-slate-200 dark:bg-slate-800 p-8 print:p-0 print:bg-white print:overflow-visible print:block">
+            <div 
+              className="flex-1 overflow-y-auto bg-slate-200 dark:bg-slate-800 p-8 print:p-0 print:bg-white print:overflow-visible print:block"
+              style={{ transform: `scale(${resumeZoom})`, transformOrigin: 'top center' }}
+            >
               <ResumePDF />
             </div>
           </div>
