@@ -227,7 +227,10 @@ export const ResumeOptimizerModal: React.FC<ResumeOptimizerModalProps> = ({
               width: '210mm',
               minHeight: '297mm',
               margin: '0 auto',
-              padding: '0'
+              padding: '0',
+              transform: 'scale(1.35)',
+              transformOrigin: 'top center',
+              marginBottom: '100px'
             }}
           >
             <ResumePDF 
